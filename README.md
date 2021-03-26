@@ -11,7 +11,7 @@ Attributes:<br/>
 Logic:<br/>
 1. Take UP(+1)/DOWN(-1), compute a final decision using latest signals and weight<br/>
 2. Match this case in knowledge database and compute amount of buy/sell<br/>
-3. Place trade through CEO agent<br/>
+3. Place trade through CEO<br/>
 
 # Knowledge database
 Attributes:<br/>
@@ -37,7 +37,7 @@ Logic
 4. Update the weight of each signal agent based on historical profit/loss data<br/>
 5. Save order book, knowledge database, weight into google sheet
 
-# CEO(Run adhoc)
+# CEO
 1. Validate against priori rules of trade (Volume/Balance)<br/>
 2. Place order through broker agent<br/>
 3. Record order in order book<br/>
@@ -53,7 +53,7 @@ Logic:<br/>
 3. Update - update the order book with profit/loss<br/>
 4. Store - saves the order book to google sheet<br/>
 
-# Broker(Run adhoc)
+# Broker
 1. Check account balance
 2. Place trade
 3. Close trade
