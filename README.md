@@ -86,7 +86,16 @@ Next, you need to obtain an **API Key** and an **API Secret**. If you're writing
 NOTE: Make sure to enable appropriate permissions for the API key (some require email confirmation).
 
 ## Dependencies
-Python 3.x: NumPy, Keras, pandas, jupyter, matplotlib, SciPy, 
+Python 3.x: NumPy, Keras, pandas, jupyter, matplotlib, SciPy and etc. Please refer to [requirements.txt](./installation/requirements.txt) for more information.
+
+## Tools
+1. **Google Drive and Sheets APIs**: application programming interfaces (APIs) developed by Google which allow communication with Google Services and their integration to other services
+2. **Python Code**: an interpreted, high-level and general-purpose programming language
+3. **PowerBI**: a business analytics service by Microsoft
+4. **Zapier**: an online automation tool that connects your favorite apps, such as Gmail, Slack
+5. **Github**: a code hosting platform for version control and collaboration
+6. **StackEdit**: a free, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites
+7. **Miro**:an Online Visual Collaboration Platform
 
 ## Contributors
 - [Ge Xiaomeng](https://github.com/oliviaxm)
