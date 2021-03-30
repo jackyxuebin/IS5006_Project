@@ -1,25 +1,29 @@
-from threading import Lock
+from threading import Thread,Lock
 from broker_agent import BrokerAgent
 from constants import trading_symbol
 from constants import timeframe
 from constants import tick_time
+from constants import debug
 import numpy as np
 import time
 
 class BollingerBandTrendAgent():
-    # Lock to prevent other agents from reading signals when tick is in progress
-    lock = Lock()
-    signals = []
 
-    @staticmethod
-    def loop():
+    def __init__(self):
+        self.lock = Lock()
+        self.signals = []
+        self.thread = Thread(name=self.__str__(),target=self.loop)
+        self.thread.start()
+
+
+    def loop(self):
         for i in range(60):
-            BollingerBandTrendAgent.tick()
+            self.tick()
             time.sleep(tick_time)
 
-    @staticmethod
-    def tick():
-        BollingerBandTrendAgent.lock.acquire()
+
+    def tick(self):
+        self.lock.acquire()
         df = BrokerAgent.get_ohlcv_data(trading_symbol,timeframe)
         df['ma_20'] = df['close'].rolling(window=20).mean()
         df['std_20'] = df['close'].rolling(window=20).std()
@@ -36,16 +40,27 @@ class BollingerBandTrendAgent():
         df['lower'] = abs(df['low_band_20'] - df['low_band_50'])
         df['upper'] = abs(df['high_band_20'] - df['high_band_50'])
         df['trend'] = (df['lower'] - df['upper']) / df['ma_20']
-        BollingerBandTrendAgent.signals.append(df.iloc[-1]['trend'])
-        print(BollingerBandTrendAgent.signals)
-        BollingerBandTrendAgent.lock.release()
+        if df.iloc[-1]['trend']<0:
+            self.signals.append(-1)
+        elif df.iloc[-1]['trend']>0:
+            self.signals.append(1)
+        else:
+            self.signals.append(0)
+        if debug:
+            print(self.__str__(),self.signals)
+           #print(df.tail(2)[['over_sell','buy_signal','over_buy','sell_signal','trend']])
+        self.lock.release()
 
-    @staticmethod
-    def peek():
-        BollingerBandTrendAgent.lock.acquire()
+
+    def peek(self):
+        self.lock.acquire()
         signal = 0
-        if len(BollingerBandTrendAgent.signals)>0:
-            signal = BollingerBandTrendAgent.signals[-1]
-        BollingerBandTrendAgent.lock.release()
+        if len(self.signals)>0:
+            signal = self.signals[-1]
+        self.lock.release()
         return signal
+
+
+    def __str__(self):
+        return 'bollinger_band_trend_agent'
 
