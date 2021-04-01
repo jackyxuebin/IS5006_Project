@@ -140,7 +140,7 @@ class Tweepy_Agent(object):
         
         # self.get_word_cloud_analysis(tweet_df)
         
-        tweet_df.to_csv(f'{screen_name}_tweets.csv', index = False)
+        tweet_df.to_csv(f'./local_db/{screen_name}_tweets.csv', index = False)
         
         self.lock.release()
         print('The lock is released')
@@ -179,7 +179,7 @@ class Tweepy_Agent(object):
         oldest = int(df_list[-1]['Tweet ID']) - 1
 
         #keep grabbing tweets until there are no tweets left to grab
-        while (len(df_list) < 1000):
+        while (len(df_list) < 200):
             print(f"getting tweets before {oldest}")
             # Collect tweets
             all_tweets = tw.Cursor(self.api.search,
@@ -217,7 +217,7 @@ class Tweepy_Agent(object):
         
         # self.get_word_cloud_analysis(tweet_df)
 
-        tweet_df.to_csv(f'{search_words}_tweets.csv', index=False)
+        tweet_df.to_csv(f'./local_db/{search_words}_tweets.csv', index=False)
         self.lock.release()
         
         print('The lock is released')
