@@ -1,0 +1,3 @@
+Flask==1.1.2
+gspread_dataframe==3.2.1
+gspread==3.7.0
