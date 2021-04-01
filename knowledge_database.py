@@ -1,8 +1,8 @@
 from threading import Lock
 import pandas as pd
+import google_api_agent
 
 class knowledgeDatabase():
-
 
     def __init__(self):
         # load weights and trade_history from google sheet
@@ -17,7 +17,6 @@ class knowledgeDatabase():
     def get_weight(self, agent):
         # return the weight of an agent
         return self.agent_weights[agent]
-
 
     def update_weight(self, agent, weight):
         # update the weight of an agent
