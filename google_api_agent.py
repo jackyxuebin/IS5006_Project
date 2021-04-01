@@ -113,9 +113,9 @@ class Google_API_Agent(object):
         self.lock.acquire()
         print('The google lock is acquired')
         
-        tweets_dataset = pd.read_csv('bitcoin_tweets.csv')
+        tweets_dataset = pd.read_csv('./local_db/bitcoin_tweets.csv')
         tweets_dataset['Sentiment Score'], tweets_dataset['Sentiment Magnitude'], tweets_dataset['Google Analyzer Label'] = zip(*tweets_dataset['Preproccessed Tweet Text'].apply(self.google_sentiment_analysis))
-        tweets_dataset.to_csv('bitcoin_tweets.csv', index = False)
+        tweets_dataset.to_csv('./local_db/bitcoin_tweets.csv', index = False)
 
         self.lock.release()
         print('The google lock is released')        
@@ -146,11 +146,8 @@ class Google_API_Agent(object):
         return sentiment_score, sentiment_magnitude, predicted_label
        
 ## uncomment the following lines of code to test the agent
-if __name__ == '__main__':
-    gs_name = 'G7'
-    google_api_object = Google_API_Agent()
-    google_api_object.create_google_sheets(gs_name)
-    tweets_dataset = pd.read_csv('bitcoin_tweets.csv')
-    google_api_object.write_google_sheets(gs_name, tweets_dataset)
-    df = google_api_object.read_google_sheets(gs_name)
-    google_api_object.append_google_sheets(gs_name)
+#if __name__ == '__main__':
+    #gs_name = 'G7'
+    #google_api_object = Google_API_Agent()
+    #google_api_object.perform_google_sentiment_analysis()
+
