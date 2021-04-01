@@ -1,13 +1,13 @@
 # IS5006 Final Group Project
 
-[![Chat on Slack](https://join.slack.com/t/is5006group07-um22767/shared_invite/zt-og1rjuud-az7Q60clKRri5bs2gkJBKg)
+[![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-7A5979.svg)](https://join.slack.com/t/is5006group07-um22767/shared_invite/zt-og1rjuud-az7Q60clKRri5bs2gkJBKg)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/arlandgoh)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 ## Multi-agent and Case-based Reasoning Algo Trading Systems
 
 <p align="left">
-    <img src="./img/trading_bitcoin" width="80%">
+    <img src="./img/trading_bitcoin.jpg" width="80%">
 </p>
 
 This is a multi-agent and case-based reasoning system for algorithmic trading (multi-threading Flask server with multiple agents). This system allows user to get recommendation on whether buy/sell/hold a cryptocurrency in HitBTC exchange.
@@ -51,14 +51,14 @@ Python 3.x: NumPy, Keras, pandas, jupyter, matplotlib, SciPy and etc. Please ref
 ## Tools
 | Tool Name | Description | 
 | --- | --- |
-| `Google Drive and Sheets APIs` | Application programming interfaces (APIs) developed by Google which allow communication with Google Services and their integration to other services |
-| `Google Colab` | a product from Google Research that allows anybody to write and execute arbitrary python code through the browser, and is especially well suited to machine learning, data analysis and education. |
-| `Python Code` | an interpreted, high-level and general-purpose programming language |
-| `PowerBI` | a business analytics service by Microsoft |
-| `Zapier` | an online automation tool that connects your favorite apps, such as Gmail, Slack |
-| `Github` | a code hosting platform for version control and collaboration |
-| `StackEdit` | a free, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites |
-| `Miro` | an Online Visual Collaboration Platform |
+| **Google Drive and Sheets APIs** | Application programming interfaces (APIs) developed by Google which allow communication with Google Services and their integration to other services |
+| **Google Colab** | a product from Google Research that allows anybody to write and execute arbitrary python code through the browser, and is especially well suited to machine learning, data analysis and education. |
+| **Python Code** | an interpreted, high-level and general-purpose programming language |
+| **PowerBI** | a business analytics service by Microsoft |
+| **Zapier** | an online automation tool that connects your favorite apps, such as Gmail, Slack |
+| **Github** | a code hosting platform for version control and collaboration |
+| **StackEdit** | a free, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites |
+| **Miro** | an Online Visual Collaboration Platform |
 
 ## Contributors
 - [Ge Xiaomeng](https://github.com/oliviaxm)
