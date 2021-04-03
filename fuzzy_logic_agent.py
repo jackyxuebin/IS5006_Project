@@ -27,7 +27,7 @@ class Fuzzy_Logic_Agent(object):
         self.lock.acquire()
         print('The fuzzy lock is acquired')
         
-        tweets_sentiment = pd.read_csv('bitcoin_tweets.csv')
+        tweets_sentiment = pd.read_csv('./local_db/bitcoin_tweets.csv')
         q = self.fuzzy_logic(tweets_sentiment)
 
         self.lock.release()

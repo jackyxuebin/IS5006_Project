@@ -68,7 +68,7 @@ Python 3.x: NumPy, Keras, pandas, jupyter, matplotlib, SciPy and etc. Please ref
 - [Yong Chee Xian Matthew](https://github.com/mattycx)
 - [Zou Yang](https://github.com/zouyang)
 
-### Disclaimer
+## Disclaimer
 
 DO NOT use this code to perform any live trading. For demo purpose only.
 
