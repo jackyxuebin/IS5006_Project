@@ -16,7 +16,7 @@ class ceo:
             if float(balance) >= cost:
                 print('Buying {} {}'.format(entry['quantity'], entry['symbol']))
                 price = BrokerAgent.place_market_buy_order(entry['symbol'], entry['quantity'])
-                entry['price'] = price
+                entry['open_price'] = price
                 entry['stoploss'] = price - entry['stoploss']
                 entry['takeprofit'] = price + entry['takeprofit']
                 entry['profit/loss'] = np.nan
@@ -28,7 +28,7 @@ class ceo:
             if float(balance) >= entry['quantity']:
                 print('Selling {} {}'.format(entry['quantity'], entry['symbol']))
                 price = BrokerAgent.place_market_sell_order(entry['symbol'], entry['quantity'])
-                entry['price'] = price
+                entry['open_price'] = price
                 entry['stoploss'] = price + entry['stoploss']
                 entry['takeprofit'] = price - entry['takeprofit']
                 entry['profit/loss']= np.nan

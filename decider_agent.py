@@ -24,13 +24,14 @@ class deciderAgent():
         self.thread.start()
 
     def loop(self):
-        for i in range(60):
+        while True:
             self.tick()
             time.sleep(tick_time)
 
 
     def tick(self):
         # compute weight to determine buy/sell
+        print('decider agent tick')
         total_weight = 0
         agent_signals={}
         trade_entry = {}

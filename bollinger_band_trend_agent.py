@@ -17,7 +17,7 @@ class BollingerBandTrendAgent():
 
 
     def loop(self):
-        for i in range(60):
+        while True:
             self.tick()
             time.sleep(tick_time)
 

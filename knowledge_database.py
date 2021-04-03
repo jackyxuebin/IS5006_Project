@@ -1,5 +1,6 @@
 from threading import Lock
 import pandas as pd
+import numpy as np
 
 class knowledgeDatabase():
 
@@ -37,12 +38,41 @@ class knowledgeDatabase():
 
         return result
 
+    def get_open_trades(self):
+        if len(self.trade_history) == 0:
+            return self.trade_history
+        else:
+            print()
+            return self.trade_history[self.trade_history['profit/loss'].isnull()]
+
     def record_trade(self, trade_entry):
         self.lock.acquire()
         self.trade_history = self.trade_history.append(trade_entry, ignore_index=True)
         self.lock.release()
 
+    def get_agg_pnl(self, agent, action, isProfit):
+        # gets the aggregated profit or loss for an agent
+
+        if len(self.trade_history) == 0:
+            return 0
+        # first find all records when agent predict action(buy/sell)
+        df = self.trade_history[self.trade_history[agent]==action]
+        # filter records where the predicted action is the final action of the trade
+        df = df[df['action']==action]
+        if isProfit:
+            df = df[df['profit/loss']>=0]
+        else:
+            df = df[df['profit/loss']<0]
+        return df['profit/loss'].dropna().sum()
+
+    def update_pnl(self, index, closing_price, pnl):
+        self.lock.acquire()
+        self.trade_history.at[index,'close_price']=closing_price
+        self.trade_history.at[index,'profit/loss']=pnl
+        self.lock.release()
+
     def dump(self):
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
+        print(self.agent_weights)
         print(self.trade_history.head())
