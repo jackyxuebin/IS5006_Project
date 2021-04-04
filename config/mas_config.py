@@ -13,8 +13,9 @@ import os
 ## Paths 
 BASE_PATH = Path(__file__).parents[1]
 DB_PATH = os.path.join(BASE_PATH, "local_db")
-DATA_PATH = os.path.join(DB_PATH, "data")
+DATA_PATH = os.path.join(DB_PATH, "train_test_data")
 MODEL_PATH = os.path.join(BASE_PATH, "model")
+LOG_PATH = os.path.join(BASE_PATH, "log")
 
 # training and testing data
 TRAINING_DATA_FILE = DATA_PATH + "/bitcoin_train_dataset_2009_2015.csv"

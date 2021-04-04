@@ -4,12 +4,12 @@ from constants import api_key
 from constants import secret
 from threading import Lock, Thread
 from multiprocessing import Process, Queue
-from tweeter_agent import *
+from tweepy_agent import *
 import controller 
 
-class CEO_Agent():
+class Personal_Assistant_Agent():
     def __init__(self):
-        self.name = 'Group 7 CEO'
+        self.name = 'Group 7 Personal Assistant Agent'
         self.call_personal_assistant_controller()
         print('activated')
 

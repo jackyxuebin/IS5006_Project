@@ -25,14 +25,17 @@ from google.cloud import language_v1
 import urllib.request  # the lib that handles the url stuff
 
 class Google_API_Agent(object):
+    
     def __init__(self):
         
         self.lock = Lock()
-        print('Google lock has been setup')
+
+        self.positive_percent = 0
+        self.neural_percent = 0
+        self.negative_percent = 0
         
         # credential for Google Drive and Google Sheets API
         self.google_json = 'https://drive.google.com/uc?export=view&id=1J2jcEdRJY1qprkBckoOG9-vYCGKvciGG'
-
         # credential for Google Cloud Natural Language API
         self.FinTechLab_json = 'https://drive.google.com/uc?export=view&id=1V6hI5PhXSQa29GlGZBt2ycIGyerSFuuV'
 
@@ -109,13 +112,25 @@ class Google_API_Agent(object):
             
     def perform_google_sentiment_analysis(self):
 
-        print(threading.currentThread().getName() + " --- ")
         self.lock.acquire()
-        print('The google lock is acquired')
+        print('The google lock is acquired\n')
         
-        tweets_dataset = pd.read_csv('./local_db/bitcoin_tweets.csv')
+        tweets_dataset = pd.read_csv('./local_db/tweet_data/bitcoin_tweets.csv')
         tweets_dataset['Sentiment Score'], tweets_dataset['Sentiment Magnitude'], tweets_dataset['Google Analyzer Label'] = zip(*tweets_dataset['Preproccessed Tweet Text'].apply(self.google_sentiment_analysis))
-        tweets_dataset.to_csv('./local_db/bitcoin_tweets.csv', index = False)
+
+        positive = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'positive']
+        self.positive_percent = positive.shape[0]/(tweets_dataset.shape[0])
+        print(self.positive_percent)
+
+        neutral = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'neutral']
+        self.neural_percent = neutral.shape[0]/(tweets_dataset.shape[0])
+        print(self.neural_percent)
+        
+        negative = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'negative']
+        self.negative_percent = negative.shape[0]/(tweets_dataset.shape[0])
+        print(self.negative_percent)
+
+        tweets_dataset.to_csv('./local_db/tweet_data/bitcoin_tweets.csv', index = False)
 
         self.lock.release()
         print('The google lock is released')        
@@ -150,4 +165,6 @@ class Google_API_Agent(object):
     #gs_name = 'G7'
     #google_api_object = Google_API_Agent()
     #google_api_object.perform_google_sentiment_analysis()
+    #tweet_df_processed = pd.read_csv('./local_db/bitcoin_tweets.csv')
+    #print(tweet_df_processed.head())
 

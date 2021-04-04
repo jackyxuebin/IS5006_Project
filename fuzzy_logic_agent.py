@@ -1,6 +1,7 @@
 import random
 import time
-from threading import Lock
+from threading import Thread,Lock
+from constants import tick_time, fuzzy_time
 import threading
 
 import os
@@ -10,28 +11,46 @@ import pandas as pd
 import numpy as np
 import json
 from datetime import datetime
+from google_api_agent import *
 
 # pip install scikit_Fuzzy
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
-class Fuzzy_Logic_Agent(object):
+class Fuzzy_Logic_Agent():
+    
     def __init__(self):
-        
         self.lock = Lock()
-        print('Fuzzy lock has been setup')
-        
+        self.signals = []
+        self.positive_percent = 0
+        self.neural_percent = 0
+        self.negative_percent = 0
+        self.thread = Thread(name=self.__str__(),target=self.loop)
+        self.thread.start()
+
+    def loop(self):
+        while True:
+            self.perform_fuzzy_logic()
+            time.sleep(tick_time)
+            
     def perform_fuzzy_logic(self):
 
-        print(threading.currentThread().getName() + " --- ")
-        self.lock.acquire()
-        print('The fuzzy lock is acquired')
+        # perform sentiment analysis
+        google_api_object = Google_API_Agent()
+        google_api_object.perform_google_sentiment_analysis()
         
-        tweets_sentiment = pd.read_csv('./local_db/bitcoin_tweets.csv')
-        q = self.fuzzy_logic(tweets_sentiment)
+        self.positive_percent = google_api_object.positive_percent
+        self.neural_percent = google_api_object.neural_percent
+        self.negative_percent = google_api_object.negative_percent
+        
+        self.lock.acquire()
+        print('The fuzzy logic lock has been acquired')
 
+        tweets_sentiment = pd.read_csv('./local_db/tweet_data/bitcoin_tweets.csv')
+        self.fuzzy_logic(tweets_sentiment)
+        
         self.lock.release()
-        print('The fuzzy lock is released')
+        print('The fuzzy logic lock has been released')
         
     # func: fuzzy logic for tweets data
     def fuzzy_logic(self, df_tweet_sentiment):
@@ -78,9 +97,27 @@ class Fuzzy_Logic_Agent(object):
         sentiment.compute()
 
         recommendation = sentiment.output['recs']
-        print('recommendation score: ', recommendation)
-        return recommendation
+        print('recommendation:', recommendation)
 
+        # We make the cutoff for recommendation score as 30
+        if (recommendation >= 30 and self.positive_percent >= 0.40):
+            self.signals.append(1)
+        elif (recommendation < 30 and self.negative_percent >= 0.40):
+            self.signals.append(-1)
+        else:
+            self.signals.append(0)
+
+    def peek(self):
+        self.lock.acquire()
+        signal = 0
+        if len(self.signals)>0:
+            signal = self.signals[-1]
+        self.lock.release()
+        return signal
+
+    def __str__(self):
+        return 'fuzzy_logic_agent'
+    
 #if __name__ == '__main__':
-    #fuzzy_logic_object = Fuzzy_Logic_Agent()
-    #fuzzy_logic_object.get_all_tweets_search()
+#    fuzzy_logic_object = Fuzzy_Logic_Agent()
+#    fuzzy_logic_object.perform_fuzzy_logic()
