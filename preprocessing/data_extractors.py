@@ -59,7 +59,8 @@ def ohlcv(dt, pair, period='1d'):
     return df
 
 
-start_day = "20140402"
+# Change both the start day and end day (range)
+start_day = "20190402"
 start_dt = datetime.strptime(start_day, "%Y%m%d")
 
 end_day = "20210402"
@@ -72,4 +73,4 @@ datelist = [date.strftime("%Y%m%d") for date in datelist]
 df = ohlcv(datelist, 'BTC/USDT', '5m')
 
 # 5 minute BTC/USDT ohlcv data between Jan 2014 and Jan 2019 from crypto exchange
-df.to_csv('../local_db/data/bitcoin_train_dataset_2015_2021.csv')
+df.to_csv('../local_db/data/bitcoin_train_dataset_2019_2021.csv')

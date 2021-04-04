@@ -1,6 +1,6 @@
-from ceo_agent import *
+from pa_agent import *
 
 class Simulation:
     def __init__(self):
-        self.ceo = CEO_Agent()
+        self.pa = Personal_Assistant_Agent()
         

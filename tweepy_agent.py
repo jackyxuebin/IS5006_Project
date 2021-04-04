@@ -1,7 +1,8 @@
 import random
 import time
-from threading import Lock
+from threading import Thread,Lock
 import threading
+from datetime import datetime, timedelta
 
 import os
 import re
@@ -18,6 +19,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from google.oauth2 import service_account
 
 from google.cloud import language_v1
+from constants import tick_time, tweeter_time
 
 import urllib.request  # the lib that handles the url stuff
 
@@ -35,12 +37,9 @@ from pylab import rcParams
 rcParams['figure.figsize'] = 12, 8
 
 class Tweepy_Agent(object):
+    
     def __init__(self):
-        
-        print('Tweepy Activated')
         self.lock = Lock()
-        print('Tweepy lock has been setup')
-        
         self.consumer_key = 'lk0gKzRSdUw5WkxnylvcPKFE2'
         self.consumer_secret = 'lSkwjt4HMKzOCP4qIvQHFa0Ea91p1kmlLN6VXhFpuQdTyfPUFu'
         self.access_token = '1375962232270381057-lcxpR8AGSHkrTfPbvTnqZdKVuPegCB'
@@ -51,16 +50,19 @@ class Tweepy_Agent(object):
         self.auth = tw.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_token, self.access_token_secret)
         self.api = tw.API(self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-       
+        self.thread = Thread(name=self.__str__(),target=self.loop)
+        self.thread.start()
+
+    def loop(self):
+        while True:
+            self.get_all_tweets_search()
+            time.sleep(tweeter_time)
+            
     # https://gist.github.com/yanofsky/5436496
     def get_all_tweets_account_name(self):
-        print(threading.currentThread().getName() + " --- ")
-        self.lock.acquire()
-        print('The tweepy lock is acquired')
         
-        # initialize a list to hold all the tweepy Tweets
-        alltweets = []
-
+        self.lock.acquire()
+        alltweets = [] # initialize a list to hold all the tweepy Tweets
         screen_name = 'whale_alert'
    
         #make initial request for most recent tweets (200 is the maximum allowed count)
@@ -93,7 +95,7 @@ class Tweepy_Agent(object):
         oldest = int(df_list[-1]['Tweet ID']) - 1
         
         #keep grabbing tweets until there are no tweets left to grab
-        while (len(df_list) < 1000):
+        while (len(df_list) < 200):
             print(f"getting tweets before {oldest}")
             #all subsiquent requests use the max_id param to prevent duplicates
             all_tweets = tw.Cursor(self.api.user_timeline, 
@@ -140,25 +142,28 @@ class Tweepy_Agent(object):
         
         # self.get_word_cloud_analysis(tweet_df)
         
-        tweet_df.to_csv(f'./local_db/{screen_name}_tweets.csv', index = False)
+        tweet_df.to_csv(f'./local_db/tweet_data/{screen_name}_tweets.csv', index = False)
         
         self.lock.release()
-        print('The lock is released')
+        
         
     def get_all_tweets_search(self):
-        print(threading.currentThread().getName() + " --- ")
+        
         self.lock.acquire()
-        print('The tweepy lock is acquired')
-        # Define the search term and the date_since date as variables
-        search_words = "bitcoin"
-        date_since = "2019-12-01"
-        print('extracting tweets')
+        print('The tweepy lock has been acquired')
+        
+        search_words = 'bitcoin OR cryptocurrency OR #bitcoin OR #cryptocurrency' # Define the search term and the date_since date as variables
+        date_since = datetime.now() 
+        #date_until = datetime.now() - timedelta(1)
+
+        date_since = datetime.strftime(date_since, '%Y-%m-%d')
+        #date_until = datetime.strftime(date_until, '%Y-%m-%d')
         
         # Collect tweets
         all_tweets = tw.Cursor(self.api.search,
                       q=search_words,
-                      lang="en",
-                      since=date_since).items(200)
+                      result_type='recent',
+                      lang="en", since=date_since).items(200)
         
         df_list = []
         for tweet in all_tweets:
@@ -216,12 +221,12 @@ class Tweepy_Agent(object):
         tweet_df['Label'] = tweet_df['Polarity'].apply(self.get_text_analysis)
         
         # self.get_word_cloud_analysis(tweet_df)
-
-        tweet_df.to_csv(f'./local_db/{search_words}_tweets.csv', index=False)
-        self.lock.release()
         
-        print('The lock is released')
-            
+        tweet_df.to_csv(f'./local_db/tweet_data/bitcoin_tweets.csv', index=False)
+
+        self.lock.release()
+        print('The tweepy lock has been released')
+                    
     # Cleaning the tweets
     # https://github.com/pjwebdev/Basic-Data-Science-Projects/blob/master/8-Twitter-Sentiment-Analysis/Tweeter%20Sentiment%20Analysis.ipynb
     def clean_up_tweet(self, txt):
@@ -263,6 +268,8 @@ class Tweepy_Agent(object):
         plt.imshow(wordCloud)
         plt.show()
 
-#if __name__ == '__main__':
-#    tweepy_object = Tweepy_Agent()
-#    tweepy_object.get_all_tweets_search()
+    def __str__(self):
+        return 'tweepy_agent'
+    
+if __name__ == '__main__':
+    tweepy_object = Tweepy_Agent()

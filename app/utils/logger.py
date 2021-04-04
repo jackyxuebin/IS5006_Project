@@ -14,7 +14,8 @@ class Logger:
         self.warning_flag = warning_flag
         self.error_flag = error_flag
         self.critical_flag = critical_flag
-        self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%y/%Y %I:%M:%S %p')
+        self.flags_list = [debug_flag, info_flag, warning_flag, error_flag, critical_flag]
+        self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 
     def setup_logger(self, logger_name, log_file_path, level):
         """To setup as many loggers as you want"""
@@ -27,7 +28,7 @@ class Logger:
             level = logging.INFO
         elif(level == 'WARNING'):
             self.warning_flag = True
-            level = logging.WARNING
+            level = logging.WARNINGF
         elif(level == 'ERROR'):
             self.error_flag = True
             level = logging.ERROR            
@@ -44,6 +45,7 @@ class Logger:
         return logger
 
     def start_logging(self, logger, msg):
+        """To start logging"""
         
         if(self.debug_flag):
             logger.debug(msg)
@@ -58,14 +60,15 @@ class Logger:
 
 ##if __name__ == '__main__':
 ##
+##    # logger name and flags(default)
 ##    logger_agent = Logger('google_api_agent')
 ##    
 ##    # first file logger
-##    loggerX = logger_agent.setup_logger('first_logger', './log/first_logfile.log', 'INFO')
+##    loggerX = logger_agent.setup_logger('first_logger', '../../log/first_logfile.log', 'INFO')
 ##    logger_agent.start_logging(loggerX, 'This is just info message h')
 ##
 ##    # second file logger
-##    loggerY = logger_agent.setup_logger('second_logger', './log/second_logfile.log','DEBUG')
+##    loggerY = logger_agent.setup_logger('second_logger', '../../log/second_logfile.log','INFO')
 ##    logger_agent.start_logging(loggerY, 'This is just info message y')
 
 

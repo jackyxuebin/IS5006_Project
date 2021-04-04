@@ -7,7 +7,7 @@ class knowledgeDatabase():
     def __init__(self):
         # load weights and trade_history from google sheet
         self.lock = Lock()
-        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1}}
+        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1} }
         self.trade_history = pd.DataFrame()
 
 
