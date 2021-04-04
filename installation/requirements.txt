@@ -1,3 +1,7 @@
 Flask==1.1.2
 gspread_dataframe==3.2.1
 gspread==3.7.0
+Historic-Crypto==0.1.4
+stockstaqts==0.3.2
+gevent==21.1.2
+flask-cors==3.0.10
