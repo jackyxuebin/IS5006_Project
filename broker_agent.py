@@ -3,6 +3,8 @@ import datetime
 import pandas as pd
 from constants import api_key
 from constants import secret
+import logging
+log = logging.getLogger('broker_agent')
 
 class BrokerAgent():
 

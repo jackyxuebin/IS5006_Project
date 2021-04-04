@@ -1,10 +1,10 @@
 import time
 from constants import learn_time
 from constants import trading_symbol
-from constants import debug
 from threading import Thread
 from broker_agent import BrokerAgent
-
+import logging
+log = logging.getLogger('learning_agent')
 
 class learningAgent():
     def __init__(self,  knowledgeDatabase, agents):
@@ -20,18 +20,18 @@ class learningAgent():
 
 
     def tick(self):
-        print('learning agent tick')
+        log.info('learning agent tick')
         # close all open trades
         open_trades = self.knowledgeDatabase.get_open_trades()
         for index,row in open_trades.iterrows():
             if row['action']==1:
                 closing_price = BrokerAgent.place_market_sell_order(trading_symbol, row['quantity'])
                 self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(closing_price - row['open_price']))
-                print('closing buy position')
+                log.info('closing buy position')
             elif row['action']==-1:
                 closing_price = BrokerAgent.place_market_buy_order(trading_symbol, row['quantity'])
                 self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(row['open_price'] - closing_price))
-                print('closing sell position')
+                log.info('closing sell position')
 
         # update weights of agents
         for agent in self.agents:
@@ -41,9 +41,9 @@ class learningAgent():
             # aggregate profit when signal is buy
             long_profit = self.knowledgeDatabase.get_agg_pnl(agent.__str__(),1,True)
             long_loss = self.knowledgeDatabase.get_agg_pnl(agent.__str__(),1,False)
-            print(long_profit,long_loss)
+            log.info('long profit: %s, long loss: %s',long_profit,long_loss)
             if long_profit == 0 or long_loss == 0:
-                print('not enough data to update weights')
+                log.info('not enough data to update weights')
                 new_weight[1] = self.knowledgeDatabase.get_weight(agent.__str__(),1)
             else:
                 long_profit_factor = long_profit/abs(long_loss)-1
@@ -55,9 +55,9 @@ class learningAgent():
             # aggregate profit when signal is sell
             short_profit = self.knowledgeDatabase.get_agg_pnl(agent.__str__(),-1,True)
             short_loss = self.knowledgeDatabase.get_agg_pnl(agent.__str__(),-1,False)
-            print(short_profit,short_loss)
+            log.info('short profit: %s, short loss: %s',short_profit,short_loss)
             if short_profit == 0 or short_loss == 0:
-                print('not enough data to update weights')
+                log.info('not enough data to update weights')
                 new_weight[-1] = self.knowledgeDatabase.get_weight(agent.__str__(),-1)
             else:
                 short_profit_factor = short_profit/abs(short_loss)-1

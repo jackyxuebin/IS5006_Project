@@ -6,6 +6,8 @@ from constants import tick_time
 from constants import debug
 import numpy as np
 import time
+import logging
+log = logging.getLogger('bollinger_band_trend_agent')
 
 class BollingerBandTrendAgent():
 
@@ -46,9 +48,8 @@ class BollingerBandTrendAgent():
             self.signals.append(1)
         else:
             self.signals.append(0)
-        if debug:
-            print(self.__str__(),self.signals)
-           #print(df.tail(2)[['over_sell','buy_signal','over_buy','sell_signal','trend']])
+        log.info('signals %s',self.signals)
+
         self.lock.release()
 
 

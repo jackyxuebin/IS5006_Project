@@ -1,6 +1,7 @@
 from threading import Lock
 import pandas as pd
-import numpy as np
+import logging
+log = logging.getLogger('knowledge_database')
 
 class knowledgeDatabase():
 
@@ -42,7 +43,6 @@ class knowledgeDatabase():
         if len(self.trade_history) == 0:
             return self.trade_history
         else:
-            print()
             return self.trade_history[self.trade_history['profit/loss'].isnull()]
 
     def record_trade(self, trade_entry):
@@ -74,5 +74,5 @@ class knowledgeDatabase():
     def dump(self):
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
-        print(self.agent_weights)
-        print(self.trade_history.head())
+        log.info(self.agent_weights)
+        log.info(self.trade_history.head())
