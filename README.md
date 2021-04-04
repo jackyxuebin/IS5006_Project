@@ -4,18 +4,21 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/arlandgoh)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
+This repository provides codes for [Group 7 Final Project](https://docs.google.com/spreadsheets/d/1lz79scscDoG9j-GIUKvt1KA83w_eNqn3bhGJ-PNGuJg/edit?usp=sharing)
+
 ## Multi-agent and Case-based Reasoning Algo Trading Systems
 
 <p align="left">
     <img src="./img/trading_bitcoin.jpg" width="80%">
 </p>
 
-This is a multi-agent and case-based reasoning system for algorithmic trading (multi-threading Flask server with multiple agents). This system allows user to get recommendation on whether buy/sell/hold a cryptocurrency in HitBTC exchange.
+## Abstract
+Cryptocurrency trading strategies play a critical role in Algorithmic trading. However, it is challenging to design a consistent and profitable strategy in a complex and dynamic cryptocurrency market. In this project, we propose a ensemble Q-learning scheme that automatically learns a cryptocurrency trading strategy by maximizing investment return. We train a Q-learning agent and obtain an ensemble trading strategy using the three different algorithms: Bollinger Band, Bollinger Band Trend, and 5-min Momo. The ensemble strategy inherits and integrates the best features of the three algorithms, thereby robustly adjusting to different market conditions. In order to avoid the large memory consumption in training networks with continuous action space, we employ a load-on-demand approach for processing very large data. We test our algorithms on the Bitcoin cryptocurrency which have adequate liquidity.
 
 ## Description
 The manual of the final project of [IS5006 Intelligent Systems Deployment](https://drive.google.com/file/d/1P0G6ujiBn6GsEXasSgORsdnBm7O68_yV/view?usp=sharing) module at National University of Singapore.
 
-We are tasked with designing and implementing a  system for **Algorithmic trading**. Given the highly complex and decentralized nature of the problem, a multi-agent system (MAS) design is a natural approach for building an efficient solution without requiring expert engineering. The goal of our system is to:
+We are tasked with designing and implementing a  system for **Algorithmic trading**. This is a multi-agent and case-based reasoning system for algorithmic trading (multi-threading Flask server with multiple agents). This system allows user to get recommendation on whether buy/sell/hold a cryptocurrency in HitBTC exchange. Given the highly complex and decentralized nature of the problem, a multi-agent system (MAS) design is a natural approach for building an efficient solution without requiring expert engineering. The goal of our system is to:
 - make recommendation(s) on whether to buy or sell cryptocurrencies
 - take action(s) based on the recommendation(s) etc.
 
@@ -24,7 +27,27 @@ We are tasked with designing and implementing a  system for **Algorithmic tradin
 <i>Multi-agents' decision flowchart</i>
 </p>
 
+## Installation
+Please refer to [installation](./installation/README.md) directory for more information.
+```shell
+git clone https://github.com/jackyxuebin/IS5006_Project.git
+```
+
+## Directories
+| Directory Name | Description | 
+| --- | --- |
+| **document** | group project manual and other informative documents |
+| **img** | images and figures which will be used in README.md |
+| **installation** | system installation instructions and list of depencies/packages  |
+| **local_db** | train/test dataset and other neccessary dataset e.g. tweet dataset |
+| **log** | log data from the system/agents  |
+| **model** | codes for training/testing of models and trained models |
+| **multi-agents** | code repository for those agents in the system |
+| **preprocessing** | functions/libraries which can be used to pre-process cyrptocurrency data |
+
 ## Quick Start
+
+#### Ubuntu, Mac OS X and Windows 10
 To run the system, please use the following command in your Terminal:
 ```
 python3 run_simulation.py
@@ -46,7 +69,13 @@ Next, you need to obtain an **API Key** and an **API Secret**. If you're writing
 NOTE: Make sure to enable appropriate permissions for the API key (some require email confirmation).
 
 ## Dependencies
-Python 3.x: NumPy, Keras, pandas, jupyter, matplotlib, SciPy and etc. Please refer to [requirements.txt](./installation/requirements.txt) for more information.
+The script has been tested running under Python >= 3.7.0, with the folowing packages installed:
+
+```shell
+pip install -r ./installation/requirements.txt
+```
+
+Please refer to [requirements.txt](./installation/requirements.txt) for more information.
 
 ## Tools
 | Tool Name | Description | 
