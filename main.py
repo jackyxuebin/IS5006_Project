@@ -9,7 +9,7 @@ import time
 import logging
 
 # Configure logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p',level=logging.INFO)
 knowledgeDatabase = knowledgeDatabase()
 ceo = ceo(knowledgeDatabase)
 pnl_agent = pnlAgent(knowledgeDatabase)

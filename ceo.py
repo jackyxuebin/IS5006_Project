@@ -2,6 +2,7 @@ from broker_agent import BrokerAgent
 from constants import currency
 from constants import debug
 import numpy as np
+from datetime import datetime
 import logging
 log = logging.getLogger('ceo')
 
@@ -22,6 +23,7 @@ class ceo:
                 entry['stoploss'] = price - entry['stoploss']
                 entry['takeprofit'] = price + entry['takeprofit']
                 entry['profit/loss'] = np.nan
+                entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
                 log.info('{} not enough balance {}, cost {}'.format(currency,balance,cost))
@@ -34,6 +36,7 @@ class ceo:
                 entry['stoploss'] = price + entry['stoploss']
                 entry['takeprofit'] = price - entry['takeprofit']
                 entry['profit/loss']= np.nan
+                entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
                 log.info('{} not enough balance {}, cost {}'.format (pair[0], balance, entry['quantity']))
