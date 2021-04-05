@@ -1,20 +1,22 @@
 from threading import Lock
 import pandas as pd
 import numpy as np
+from google_api_agent import *
 
 class knowledgeDatabase():
 
     def __init__(self):
         # load weights and trade_history from google sheet
         self.lock = Lock()
-        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1} }
+
+        # export 
+        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1}, 'fuzzy_logic_agent':{1:1,0:0,-1:1} }
         self.trade_history = pd.DataFrame()
-
-
+    
     def __del__(self):
         # save weights and trade_history to google sheet
         return None
-
+    
     def get_weight(self, agent, signal):
         # return the weight of an agent
 
@@ -74,5 +76,14 @@ class knowledgeDatabase():
     def dump(self):
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
+
+        header = ['action','bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent', 'open_price', 'profit/loss', 'quantity', 'stoploss', 'symbol','takeprofit','close_price']
+        
+        if os.path.isfile('./local_db/pnl_data/PnL_report.csv'):
+            self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv', mode='a', header=False, index=False)   
+        else:
+            df = pd.DataFrame(columns=header)
+            df.to_csv('./local_db/pnl_data/PnL_report.csv', index=False)
+            
         print(self.agent_weights)
         print(self.trade_history.head())

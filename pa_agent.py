@@ -3,7 +3,6 @@ import pandas as pd
 from constants import api_key
 from constants import secret
 from threading import Lock, Thread
-from multiprocessing import Process, Queue
 from tweepy_agent import *
 import controller 
 
