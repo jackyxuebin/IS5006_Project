@@ -1,10 +1,10 @@
 from threading import Thread
-from constants import tick_time
-from constants import debug
 from constants import trading_symbol
 from constants import pnl_time
 from broker_agent import BrokerAgent
 import time
+import logging
+log = logging.getLogger('pnl_agent')
 
 class pnlAgent():
 
@@ -21,21 +21,21 @@ class pnlAgent():
 
     def tick(self):
         # scans knowledge database for any violation of stoploss and take profit condition
-        print('ticking in PNL agent')
+        log.info('ticking in PNL agent')
         to_monitor = self.knowledgeDatabase.get_open_trades()
-        print(to_monitor.head())
+        log.info(to_monitor.head())
         current_price = BrokerAgent.get_ticker_price(trading_symbol)
         for index, row in to_monitor.iterrows():
             if row['action'] == 1: # buy order
                 if current_price < row['stoploss'] or current_price > row['takeprofit']: # risk condition triggered
                     closing_price = BrokerAgent.place_market_sell_order(trading_symbol,row['quantity'])
                     self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(closing_price - row['open_price']))
-                    print('closing buy position')
+                    log.info('closing buy position')
             elif row['action'] == -1: # sell order
                 if current_price > row['stoploss']  or current_price < row['takeprofit']: # risk condition triggered
                     closing_price = BrokerAgent.place_market_buy_order(trading_symbol,row['quantity'])
                     self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(row['open_price'] - closing_price))
-                    print('closing sell position')
+                    log.info('closing sell position')
 
 
     def __str__(self):

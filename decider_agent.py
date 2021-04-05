@@ -8,10 +8,10 @@ from constants import action_threshold
 from constants import timeframe
 from constants import risk_reward_ratio
 from threading import Thread
-from ceo import ceo
 from broker_agent import BrokerAgent
 import time
-import pandas as pd
+import logging
+log = logging.getLogger('decider_agent')
 
 
 class deciderAgent():
@@ -31,7 +31,7 @@ class deciderAgent():
 
     def tick(self):
         # compute weight to determine buy/sell
-        print('decider agent tick')
+        log.info('decider agent tick')
         total_weight = 0
         agent_signals={}
         trade_entry = {}
@@ -42,7 +42,7 @@ class deciderAgent():
             agent_signals[agent.__str__()] = signal
             trade_entry[agent.__str__()] = signal
         if debug:
-            print('total weight:',total_weight)
+            log.info('total weight:%s',total_weight)
         if total_weight > action_threshold:
             action = 1
         elif total_weight < -action_threshold:
@@ -53,16 +53,13 @@ class deciderAgent():
 
         # case based reasoning to determine quantity
         trade_quantity = default_trade_amount
-        if debug:
-            print('case based reasoning:')
+        log.info('case based reasoning:')
         matched_case = self.knowledgeDatabase.get_case(agent_signals)
-        if debug:
-            print('matched case:',matched_case)
+        log.info('matched case: %s',matched_case)
 
         if len(matched_case) > case_threshold:
             profit = matched_case['profit/loss'].dropna().sum()/len(matched_case)
-            if debug:
-                print('average profitability:',profit)
+            log.info('average profitability:%s',profit)
             if profit > profit_threshold_percentage:
                 trade_quantity = 2 * default_trade_amount
         trade_entry['quantity'] = trade_quantity
