@@ -55,5 +55,9 @@ def create_app(test_config=None):
         
         # Start simulation
         simulation = Simulation()
+        return jsonify({
+            'success': True,
+            'multi-agent system': 'Running',
+        })
         
     return app
