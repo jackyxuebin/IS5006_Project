@@ -8,6 +8,7 @@ from multiagents.tweepy_agent import Tweepy_Agent
 from multiagents.fuzzy_logic_agent import Fuzzy_Logic_Agent
 from multiagents.bollinger_band_agent import BollingerBandAgent
 from multiagents.deep_evolution_agent import DeepEvolutionAgent
+from multiagents.Q_learning_double_duel_recurrent_agent import QLearningDoubleDuelRecurrentAgent
 from multiagents.bollinger_band_trend_agent import BollingerBandTrendAgent
 from multiagents.knowledge_database import knowledgeDatabase
 from multiagents.decider_agent import deciderAgent
@@ -25,7 +26,7 @@ class Controller(object):
         self.knowledgeDatabase = knowledgeDatabase()
         self.ceo = ceo(self.knowledgeDatabase)
         self.pnl_agent = pnlAgent(self.knowledgeDatabase)
-        self.signal_agents = [BollingerBandAgent(), BollingerBandTrendAgent(), Fuzzy_Logic_Agent(), DeepEvolutionAgent()]
+        self.signal_agents = [BollingerBandAgent(), BollingerBandTrendAgent(), Fuzzy_Logic_Agent(), DeepEvolutionAgent(), QLearningDoubleDuelRecurrentAgent()]
         self.learning_agent = learningAgent(self.knowledgeDatabase,self.signal_agents)
         self.decider_agent = deciderAgent(self.knowledgeDatabase,self.signal_agents, self.ceo)
        

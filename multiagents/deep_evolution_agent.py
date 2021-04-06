@@ -6,6 +6,10 @@ import time
 import logging
 log = logging.getLogger('deep_evolution_agent')
 should_load_model = True
+# Model trained with
+#     600 sets 1min data, iterations = 500
+#     POPULATION_SIZE = 15, SIGMA = 0.1, LEARNING_RATE = 0.03
+#     window_size = 30, layer_size = 500, output_size = 3
 
 
 class Deep_Evolution_Strategy:
@@ -60,7 +64,7 @@ class Deep_Evolution_Strategy:
                     % (i + 1, self.reward_function(self.weights))
                 )
         print('time taken to train:', time.time() - lasttime, 'seconds')
-        np.save('./Models/Deep_Evolution_Model', self.weights)
+        np.save('./model/Deep_Evolution_Model', self.weights)
         # print(self.weights)
 
 
@@ -200,9 +204,9 @@ class DeepEvolutionAgent():
 
     def tick(self):
         self.lock.acquire()
-        df = BrokerAgent.get_ohlcv_data(trading_symbol,timeframe,limit=1000)
+        df = BrokerAgent.get_ohlcv_data(trading_symbol,timeframe,limit=600)
         close = df.close.values.tolist()
-        window_size = 100
+        window_size = 30
         skip = 1
         initial_money = 2000 / default_trade_amount
 
