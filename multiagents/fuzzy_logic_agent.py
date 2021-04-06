@@ -1,7 +1,7 @@
 import random
 import time
 from threading import Thread,Lock
-from constants import tick_time, fuzzy_time
+from app.constants.constants import *
 import threading
 
 import os
@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import json
 from datetime import datetime
-from google_api_agent import *
+from multiagents.google_api_agent import *
 
 # pip install scikit_Fuzzy
 import skfuzzy as fuzz

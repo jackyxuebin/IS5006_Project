@@ -1,7 +1,6 @@
 from threading import Thread
-from constants import trading_symbol
-from constants import pnl_time
-from broker_agent import BrokerAgent
+from app.constants.constants import *
+from multiagents.broker_agent import BrokerAgent
 import time
 import logging
 log = logging.getLogger('pnl_agent')

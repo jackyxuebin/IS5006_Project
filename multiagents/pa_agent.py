@@ -1,10 +1,9 @@
 import datetime
 import pandas as pd
-from constants import api_key
-from constants import secret
+from app.constants.constants import *
 from threading import Lock, Thread
-from tweepy_agent import *
-import controller 
+from multiagents.tweepy_agent import *
+from multiagents.controller import *
 
 class Personal_Assistant_Agent():
     def __init__(self):
@@ -14,6 +13,6 @@ class Personal_Assistant_Agent():
 
     def call_personal_assistant_controller(self):
         print("PA is activated")
-        pa_controller = controller.Controller()
+        pa_controller = Controller()
         
 

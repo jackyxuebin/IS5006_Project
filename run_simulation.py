@@ -1,4 +1,4 @@
-from simulation import *
+from multiagents.simulation import *
 
 # Simulation setup
 simulation = Simulation()

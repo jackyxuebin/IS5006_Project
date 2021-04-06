@@ -1,4 +1,4 @@
-from pa_agent import *
+from multiagents.pa_agent import *
 
 class Simulation:
     def __init__(self):

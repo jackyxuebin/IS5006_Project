@@ -1,8 +1,7 @@
 import time
-from constants import learn_time
-from constants import trading_symbol
+from app.constants.constants import *
 from threading import Thread
-from broker_agent import BrokerAgent
+from multiagents.broker_agent import BrokerAgent
 import logging
 log = logging.getLogger('learning_agent')
 
