@@ -11,7 +11,7 @@ class knowledgeDatabase():
     def __init__(self):
         # load weights and trade_history from google sheet
         self.lock = Lock()
-        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1} }
+        self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1},'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1}, 'deep_evolution_agent':{1:1,0:0,-1:1} }
         self.trade_history = pd.DataFrame()
         self.google_api_object = Google_API_Agent()
         self.gs_name = 'PnL Report'
@@ -80,9 +80,8 @@ class knowledgeDatabase():
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
 
-        header = ['action','bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent', 'open_price', 'profit/loss', 'quantity', 'stoploss', 'symbol','takeprofit', 'timestamp', 'close_price']
+        header = ['action','bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent', 'deep_evolution_agent', 'open_price', 'profit/loss', 'quantity', 'stoploss', 'symbol','takeprofit', 'timestamp', 'close_price']
 
-        
         if (os.path.isfile('./local_db/pnl_data/PnL_report.csv')):
             if(self.trade_history.empty):
                 pass

@@ -4,6 +4,7 @@ import os
 import time
 import numpy as np
 import base64
+import sys
 
 from flask import Flask, jsonify, send_file, request
 from flask_cors import CORS, cross_origin
@@ -12,6 +13,8 @@ from werkzeug.utils import secure_filename
 from app.utils.logger import *
 from config.mas_config import *
 from multiagents.simulation import *
+from multiagents.backtesting import *
+from multiprocessing import Process
 
 def create_app(test_config=None):
     """
@@ -22,6 +25,8 @@ def create_app(test_config=None):
         # create and configure the app
         app = Flask(__name__, instance_relative_config=True)
         CORS(app)
+        
+        simulation = ""
         
         flask_app_logger_agent = Logger('flask_app_logger', info_flag = True)
         flask_app_logger = flask_app_logger_agent.setup_logger('flask_app_logger', os.path.join(LOG_PATH, 'flask_app.log'), 'INFO') 
@@ -46,6 +51,7 @@ def create_app(test_config=None):
         Simple homepage for health check
         :returns: 'Welcome to our Group 7 MAS!'
         """
+        print(request.environ.get('werkzeug.server.shutdown'))
         return('Welcome to our Group 7 MAS!')
 
     @app.route('/run_simulation')
@@ -57,5 +63,15 @@ def create_app(test_config=None):
             'success': True,
             'multi-agent system': 'Running',
         })
+
+    @app.route('/run_backtesting')
+    def run_backtesting():
         
+        # Start simulation
+        backtesting = Backtesting()
+        return jsonify({
+            'success': True,
+            'backtesting': 'Completed',
+        })
+    
     return app
