@@ -115,15 +115,13 @@ class Google_API_Agent(object):
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
             try:          
                 new_row[-1] = new_row[-1].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
-                print('ohA')
             except:       
                 new_row[-2] = new_row[-2].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
-                print('ohB')
                 
             worksheet.append_row(new_row)
             print(sharable_url_agent)
         except:
-            print('An error occurred')
+            print('An error occurred while appending to Google Sheets')
             
     def perform_google_sentiment_analysis(self):
 

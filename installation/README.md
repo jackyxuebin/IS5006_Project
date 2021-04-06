@@ -5,17 +5,22 @@ We may need to install some Python dependencies on your machine. We assume that 
 
 ### For Ubuntu User
 To install these dependencies:
-1. Open the Terminal as an administator. This is required for the installation.
-2. Navigate to the directory of this readme file (which also contains the Python script requirements.txt) in the Terminal.
+1. Open the Terminal. 
+2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the Terminal.
 3. Run 'pip3 install -r requirements.txt'
-4. This should install the dependencies.
 
 ### For Windows User
 To install these dependencies:
 1. Open the Windows Command Prompt as an administator. This is required for the installation. Simply right-click on the Command Prompt app in the startup menu and select 'Run As Administrator'.
-2. Navigate to the directory of this readme file (which also contains the Python script requirements.txt) in the command prompt.
+2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the command prompt.
 3. Run 'pip3 install -r requirements.txt'
 4. This should install the dependencies.
+
+### For Mac User
+To install these dependencies:
+1. Open the Terminal. 
+2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the Terminal.
+3. Run 'pip3 install -r requirements.txt'
 
 If any problems occur, please email one of the following members and paste the error message.
 - [Ge Xiaomeng](mailto:e0403444@u.nus.edu?subject=[GitHub]%20IS5006_Project), 

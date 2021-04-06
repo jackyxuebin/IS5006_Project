@@ -67,7 +67,7 @@ class Deep_Evolution_Strategy:
 class Model:
     def __init__(self, input_size, layer_size, output_size, load_model):
         if load_model:
-            self.weights = np.load('./Models/Deep_Evolution_Model.npy', allow_pickle=True)
+            self.weights = np.load('./model/Deep_Evolution_Model.npy', allow_pickle=True)
         else:
             self.weights = [
                 np.random.randn(input_size, layer_size),

@@ -2,9 +2,10 @@ from app.utils.logger import *
 from config.mas_config import *
 from gevent.pywsgi import WSGIServer
 
-from app import create_app    
+from app import create_app
+import sys
 
-if __name__ == "__main__":
+def run_server():
     
     try:
         system_logger_agent = Logger('server_logger', info_flag = True)
@@ -21,6 +22,13 @@ if __name__ == "__main__":
         
         system_logger_agent.start_logging(system_logger, 'Exception - ' + str(e))
 
+    # Raise KeyboardInterrupt to stop our MAS system
     except KeyboardInterrupt as e:
+
+        system_logger_agent.start_logging(system_logger, 'The server has been shutdown gracefully')
+
+if __name__ == "__main__":
+    run_server()
+    
         
-        system_logger_agent.start_logging(system_logger, 'Keyboard Interrupt')
+
