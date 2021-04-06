@@ -1,9 +1,6 @@
 from threading import Thread,Lock
-from broker_agent import BrokerAgent
-from constants import trading_symbol
-from constants import timeframe
-from constants import tick_time
-from constants import debug
+from multiagents.broker_agent import BrokerAgent
+from app.constants.constants import *
 import numpy as np
 import time
 import logging

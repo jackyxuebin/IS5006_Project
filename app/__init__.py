@@ -11,9 +11,7 @@ from werkzeug.utils import secure_filename
 
 from app.utils.logger import *
 from config.mas_config import *
-
-from simulation import *
-
+from multiagents.simulation import *
 
 def create_app(test_config=None):
     """

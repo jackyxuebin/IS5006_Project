@@ -19,7 +19,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from google.oauth2 import service_account
 
 from google.cloud import language_v1
-from constants import tick_time, tweeter_time
+from app.constants.constants import *
 
 import urllib.request  # the lib that handles the url stuff
 
@@ -90,61 +90,27 @@ class Tweepy_Agent(object):
                                  'Followers': int(follower_count),'Follows': int(follow_count),'Verified' : str(verified),
                                  'User Since': user_since,'Location': location,'bio': bio
                                  })
-                       
-        #save the id of the oldest tweet less one
-        oldest = int(df_list[-1]['Tweet ID']) - 1
         
         #keep grabbing tweets until there are no tweets left to grab
-        while (len(df_list) < 200):
-            print(f"getting tweets before {oldest}")
-            #all subsiquent requests use the max_id param to prevent duplicates
-            all_tweets = tw.Cursor(self.api.user_timeline, 
-                                    screen_name=screen_name, 
-                                    count=None,
-                                    since_id=None,
-                                    max_id=oldest,
-                                    #trim_user=True,
-                                    exclude_replies=True,
-                                    contributor_details=False,
-                                    include_entities=False
-                                    ).items(200);            
-            for tweet in all_tweets:
-                created_at = tweet.created_at; tweet_id = tweet.id_str; text = tweet.text
-                fullname = tweet.user.name; screenname = tweet.user.screen_name; favorite_count = tweet.favorite_count
-                retweet_count = tweet.retweet_count; follower_count = tweet.user.followers_count; follow_count = tweet.user.friends_count
-                verified = tweet.user.verified; location = tweet.user.location; bio = tweet.user.description; user_since = tweet.user.created_at
-                
-                #'created_day': created_day,'created_dd': created_dd,'created_mmm': created_mmm,
-                #'created_yyyy': created_yyyy,'created_time': created_time,
-                df_list.append({'Date': created_at, 'Tweet ID': tweet_id, 'Tweet Text': str(text),'Full Name': str(fullname),
-                                     'Screen Name': '@' + str(screenname),'Favorite_count': int(favorite_count),'Retweets': int(retweet_count),
-                                     'Followers': int(follower_count),'Follows': int(follow_count),'Verified' : str(verified),
-                                     'User Since': user_since,'Location': location,'Bio': bio
-                                     })
-                           
-            oldest = int(df_list[-1]['Tweet ID']) - 1
-            print(f"...{len(df_list)} tweets downloaded so far")
+        if (len(df_list) >= 200):    
+            # 'created_day', 'created_dd', 'created_mmm', 'created_yyyy','created_time',    
+            tweet_df = pd.DataFrame(df_list, columns = ['Date','Tweet ID', 'Tweet Text', 'Full Name', 'Screen Name',
+                                                              'Favorite_count', 'Retweets', 'Followers','Follows', 'Verified',
+                                                               'User Since', 'Location', 'Bio']) 
 
-
-
+            # sentiment analysis
+            tweet_df['Preproccessed Tweet Text'] = tweet_df['Tweet Text'].apply(self.clean_up_tweet)
+            tweet_df['Subjectivity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_subjectivity)
+            tweet_df['Polarity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_polarity)
+            tweet_df = tweet_df.drop(tweet_df[tweet_df['Preproccessed Tweet Text'] == ''].index)
+            tweet_df['Label'] = tweet_df['Polarity'].apply(self.get_text_analysis)
             
-        # 'created_day', 'created_dd', 'created_mmm', 'created_yyyy','created_time',    
-        tweet_df = pd.DataFrame(df_list, columns = ['Date','Tweet ID', 'Tweet Text', 'Full Name', 'Screen Name',
-                                                          'Favorite_count', 'Retweets', 'Followers','Follows', 'Verified',
-                                                           'User Since', 'Location', 'Bio']) 
-
-        # sentiment analysis
-        tweet_df['Preproccessed Tweet Text'] = tweet_df['Tweet Text'].apply(self.clean_up_tweet)
-        tweet_df['Subjectivity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_subjectivity)
-        tweet_df['Polarity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_polarity)
-        tweet_df = tweet_df.drop(tweet_df[tweet_df['Preproccessed Tweet Text'] == ''].index)
-        tweet_df['Label'] = tweet_df['Polarity'].apply(self.get_text_analysis)
-        
-        # self.get_word_cloud_analysis(tweet_df)
-        
-        tweet_df.to_csv(f'./local_db/tweet_data/{screen_name}_tweets.csv', index = False)
-        
-        self.lock.release()
+            # self.get_word_cloud_analysis(tweet_df)
+            
+            tweet_df.to_csv(f'./local_db/tweet_data/{screen_name}_tweets.csv', index = False)
+            self.lock.release()
+        else:
+            self.lock.release()
         
         
     def get_all_tweets_search(self):
@@ -160,10 +126,14 @@ class Tweepy_Agent(object):
         #date_until = datetime.strftime(date_until, '%Y-%m-%d')
         
         # Collect tweets
-        all_tweets = tw.Cursor(self.api.search,
-                      q=search_words,
-                      result_type='recent',
-                      lang="en", since=date_since).items(200)
+        try:
+            all_tweets = tw.Cursor(self.api.search,
+                          q=search_words,
+                          result_type='recent',
+                          lang="en", since=date_since).items(200)
+        except:
+            print('tweets not collected')
+            all_tweets = pd.DataFrame()
         
         df_list = []
         for tweet in all_tweets:
@@ -181,51 +151,29 @@ class Tweepy_Agent(object):
                                  })
             
         #save the id of the oldest tweet less one
-        oldest = int(df_list[-1]['Tweet ID']) - 1
+        if(len(df_list)>0):
+            oldest = int(df_list[-1]['Tweet ID']) - 1
+        else:
+            pass
 
         #keep grabbing tweets until there are no tweets left to grab
-        while (len(df_list) < 200):
-            print(f"getting tweets before {oldest}")
-            # Collect tweets
-            all_tweets = tw.Cursor(self.api.search,
-                          q=search_words,
-                          lang="en",
-                          since=date_since).items(200)
-            
-            for tweet in all_tweets:
-                created_at = tweet.created_at; tweet_id = tweet.id_str
-                text = tweet.text; fullname = tweet.user.name; screenname = tweet.user.screen_name
-                favorite_count = tweet.favorite_count; retweet_count = tweet.retweet_count
-                follower_count = tweet.user.followers_count; follow_count = tweet.user.friends_count
-                verified = tweet.user.verified; location = tweet.user.location
-                bio = tweet.user.description; user_since = tweet.user.created_at
-                
-                df_list.append({'Date': created_at, 'Tweet ID': str(tweet_id), 'Tweet Text': str(text),'Full Name': str(fullname),
-                                     'Screen Name': '@' + str(screenname),'Favorite_count': int(favorite_count),'Retweets': int(retweet_count),
-                                     'Followers': int(follower_count),'Follows': int(follow_count),'Verified' : str(verified),
-                                     'User Since': user_since,'Location': location,'Bio': bio
-                                     })
-                
-            oldest = int(df_list[-1]['Tweet ID']) - 1
-            print(oldest)
-            print(f"...{len(df_list)} tweets downloaded so far")
-            
-        tweet_df = pd.DataFrame(df_list, columns = ['Date','Tweet ID', 'Tweet Text', 'Full Name', 'Screen Name',
-                                                          'Favorite_count', 'Retweets', 'Followers','Follows', 'Verified',
-                                                           'User Since', 'Location', 'Bio'])
+        if (len(df_list) >= 200):               
+            tweet_df = pd.DataFrame(df_list, columns = ['Date','Tweet ID', 'Tweet Text', 'Full Name', 'Screen Name',
+                                                              'Favorite_count', 'Retweets', 'Followers','Follows', 'Verified',
+                                                               'User Since', 'Location', 'Bio'])
 
-        tweet_df['Preproccessed Tweet Text'] = tweet_df['Tweet Text'].apply(self.clean_up_tweet)
-        tweet_df['Subjectivity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_subjectivity)
-        tweet_df['Polarity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_polarity)
-        tweet_df = tweet_df.drop(tweet_df[tweet_df['Preproccessed Tweet Text'] == ''].index)
-        tweet_df['Label'] = tweet_df['Polarity'].apply(self.get_text_analysis)
-        
-        # self.get_word_cloud_analysis(tweet_df)
-        
-        tweet_df.to_csv(f'./local_db/tweet_data/bitcoin_tweets.csv', index=False)
-
-        self.lock.release()
-        print('The tweepy lock has been released')
+            tweet_df['Preproccessed Tweet Text'] = tweet_df['Tweet Text'].apply(self.clean_up_tweet)
+            tweet_df['Subjectivity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_subjectivity)
+            tweet_df['Polarity'] = tweet_df['Preproccessed Tweet Text'].apply(self.get_text_polarity)
+            tweet_df = tweet_df.drop(tweet_df[tweet_df['Preproccessed Tweet Text'] == ''].index)
+            tweet_df['Label'] = tweet_df['Polarity'].apply(self.get_text_analysis)
+            
+            # self.get_word_cloud_analysis(tweet_df)
+            
+            tweet_df.to_csv(f'./local_db/tweet_data/bitcoin_tweets.csv', index=False)
+            self.lock.release()
+        else:
+            self.lock.release()
                     
     # Cleaning the tweets
     # https://github.com/pjwebdev/Basic-Data-Science-Projects/blob/master/8-Twitter-Sentiment-Analysis/Tweeter%20Sentiment%20Analysis.ipynb
@@ -271,5 +219,5 @@ class Tweepy_Agent(object):
     def __str__(self):
         return 'tweepy_agent'
     
-if __name__ == '__main__':
-    tweepy_object = Tweepy_Agent()
+#if __name__ == '__main__':
+#    tweepy_object = Tweepy_Agent()

@@ -1,6 +1,5 @@
-from broker_agent import BrokerAgent
-from constants import currency
-from constants import debug
+from multiagents.broker_agent import BrokerAgent
+from app.constants.constants import *
 import numpy as np
 from datetime import datetime
 import logging
@@ -22,7 +21,7 @@ class ceo:
                 entry['open_price'] = price
                 entry['stoploss'] = price - entry['stoploss']
                 entry['takeprofit'] = price + entry['takeprofit']
-                entry['profit/loss'] = np.nan
+                entry['profit/loss'] = 0
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
@@ -35,7 +34,7 @@ class ceo:
                 entry['open_price'] = price
                 entry['stoploss'] = price + entry['stoploss']
                 entry['takeprofit'] = price - entry['takeprofit']
-                entry['profit/loss']= np.nan
+                entry['profit/loss']= 0
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:

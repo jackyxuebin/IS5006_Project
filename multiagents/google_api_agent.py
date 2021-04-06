@@ -104,9 +104,24 @@ class Google_API_Agent(object):
     def append_google_sheets(self, gs_name, new_row):
         try:
             sh_agent = self.gc.open(gs_name)
-            worksheet = sh_agent.worksheet('Sheet1')
-            # new_row = ['Date', 'Tweet ID', 'Tweet Text', 'Full Name', 'Screen Name', 'Favorite_count', 'Retweets', 'Followers', 'Follows', 'Verified', 'User Since', 'Location', 'Bio', 'Preproccessed Tweet Text', 'Subjectivity', 'Polarity', 'Label', 'Sentiment Score', 'Sentiment Magnitude', 'Google Analyzer Label']
+            worksheet = sh_agent.sheet1
+            
+            file_id_agent = sh_agent.id
+            permission_agent = {
+                'type': 'anyone',
+                'role': 'writer',
+            }
+            res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
+            sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
+            try:          
+                new_row[-1] = new_row[-1].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
+                print('ohA')
+            except:       
+                new_row[-2] = new_row[-2].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
+                print('ohB')
+                
             worksheet.append_row(new_row)
+            print(sharable_url_agent)
         except:
             print('An error occurred')
             
