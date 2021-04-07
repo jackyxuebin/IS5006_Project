@@ -22,6 +22,7 @@ class ceo:
                 entry['stoploss'] = price - entry['stoploss']
                 entry['takeprofit'] = price + entry['takeprofit']
                 entry['profit/loss'] = 0
+                entry['close_price'] = 'nan'
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
@@ -35,6 +36,7 @@ class ceo:
                 entry['stoploss'] = price + entry['stoploss']
                 entry['takeprofit'] = price - entry['takeprofit']
                 entry['profit/loss']= 0
+                entry['close_price'] = 'nan'
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:

@@ -71,7 +71,7 @@ class Google_API_Agent(object):
     def create_google_sheets(self, gs_name):
         sh = self.gc.create(gs_name)
         worksheet = sh.worksheet('Sheet1')
-        print('The Google Sheets has been created!')
+        print('The Google Sheets ' + gs_name + ' has been created!\n')
 
     # read (R) a Google Sheets into DataFrame
     def read_google_sheets(self, gs_name):
@@ -80,7 +80,7 @@ class Google_API_Agent(object):
         data = worksheet.get_all_values()
         headers = data.pop(0)
         df = pd.DataFrame(data, columns=headers)
-        print('The DataFrame has been read!')
+        print('The DataFrame has been read!\n')
         return df
 
     # write (W) a Google Sheets
@@ -98,14 +98,13 @@ class Google_API_Agent(object):
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
             print(sharable_url_agent)
         except:
-            print('An error occurred')
+            print('An error occurred\n')
 
     # append (U) to a Google Sheets
     def append_google_sheets(self, gs_name, new_row):
         try:
             sh_agent = self.gc.open(gs_name)
             worksheet = sh_agent.sheet1
-            
             file_id_agent = sh_agent.id
             permission_agent = {
                 'type': 'anyone',
@@ -113,15 +112,22 @@ class Google_API_Agent(object):
             }
             res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
-            try:          
-                new_row[-1] = new_row[-1].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
-            except:       
-                new_row[-2] = new_row[-2].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S")
-                
+
+            if(new_row[0] == 'timestamp'):
+
+                pass
+            else:
+
+                try:
+                    new_row[0] = str(new_row[0].to_pydatetime().strftime("%d-%m-%Y %H:%M:%S"))
+                except:
+                    new_row[0] = str(new_row[0])
+
             worksheet.append_row(new_row)
+
             print(sharable_url_agent)
         except:
-            print('An error occurred while appending to Google Sheets')
+            print('An error occurred while appending to Google Sheets\n')
             
     def perform_google_sentiment_analysis(self):
 
@@ -146,7 +152,7 @@ class Google_API_Agent(object):
         tweets_dataset.to_csv('./local_db/tweet_data/bitcoin_tweets.csv', index = False)
 
         self.lock.release()
-        print('The google lock is released')        
+        print('The google lock is released\n')        
         
     # this function used to send a tweet text to google api to get the score and magnitude
     def google_sentiment_analysis(self, content):
