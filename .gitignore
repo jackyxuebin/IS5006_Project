@@ -134,6 +134,5 @@ local_db/data/preprocessed_data.csv
 local_db/train_test_data/bitcoin_train_dataset_2015_2021.csv
 local_db/train_test_data/bitcoin_train_dataset_2019_2021.csv
 local_db/train_test_data/preprocessed_data.csv
-local_db/pnl_data/PnL_report.csv
 .idea/*
 multiagents/.idea/*

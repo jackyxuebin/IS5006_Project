@@ -6,6 +6,10 @@ import random
 import numpy as np
 import time
 import logging
+import warnings
+warnings.filterwarnings("ignore")
+
+
 log = logging.getLogger('Q_learning_double_duel_recurrent_agent')
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()

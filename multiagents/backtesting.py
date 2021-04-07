@@ -25,7 +25,7 @@ class Backtesting:
         self.knowledgeDatabase = knowledgeDatabase()
         self.ceo = ceo(self.knowledgeDatabase)
         self.pnl_agent = pnlAgent(self.knowledgeDatabase)
-        self.signal_agents = [BollingerBandAgent(), BollingerBandTrendAgent(), Fuzzy_Logic_Agent(), DeepEvolutionAgent()]
+        self.signal_agents = [BollingerBandAgent(), BollingerBandTrendAgent(), Fuzzy_Logic_Agent(), DeepEvolutionAgent(), QLearningDoubleDuelRecurrentAgent()]
         self.learning_agent = learningAgent(self.knowledgeDatabase,self.signal_agents)
         self.decider_agent = deciderAgent(self.knowledgeDatabase,self.signal_agents, self.ceo)
        

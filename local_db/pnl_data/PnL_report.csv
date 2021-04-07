@@ -1,0 +1,6 @@
+timestamp,symbol,action,bollinger_band_agent,bollinger_band_trend_agent,fuzzy_logic_agent,deep_evolution_agent,Q_learning_double_duel_recurrent_agent,open_price,close_price,quantity,profit/loss,stoploss,takeprofit
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
