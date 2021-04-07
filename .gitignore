@@ -127,7 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-bitcoin_tweets.csv
 local_db/data/bitcoin_train_dataset_2014_2021.csv
 local_db/data/bitcoin_train_dataset_2015_2021.csv
 local_db/data/preprocessed_data.csv
