@@ -33,7 +33,7 @@ google-pasta==0.2.0
 google-resumable-media==1.2.0
 googleapis-common-protos==1.53.0
 greenlet==1.0.0
-grpcio==1.36.1
+grpcio
 gspread==3.7.0
 gspread-dataframe==3.2.1
 h5py==2.10.0
@@ -90,9 +90,9 @@ six==1.15.0
 sortedcontainers==2.2.2
 soupsieve==2.2
 stockstats==0.3.2
-tensorboard==2.4.1
+tensorboard
 tensorboard-plugin-wit==1.7.0
-tensorflow==2.4.0
+tensorflow
 tensorflow-estimator==2.4.0
 termcolor==1.1.0
 textblob==0.15.3
