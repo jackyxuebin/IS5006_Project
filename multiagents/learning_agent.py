@@ -23,19 +23,22 @@ class learningAgent():
         # cancel all open orders
         open_orders = self.knowledgeDatabase.get_unfilled_trades()
         for index,row in open_orders.iterrows():
-            BrokerAgent.cancel_order(row['client_order_id'],row['symbol'])
-            log.info('cancelled order %s',row['client_order_id'])
+            try:
+                BrokerAgent.cancel_order(row['client_order_id'],row['symbol'])
+                log.warn('cancelled order %s',row['client_order_id'])
+            except:
+                log.error('failed to cancel %s',row['client_order_id'])
         # close all open trades
         open_trades = self.knowledgeDatabase.get_open_trades()
         for index,row in open_trades.iterrows():
             if row['action']==1:
                 closing_price = BrokerAgent.place_market_sell_order(trading_symbol, row['quantity'])
                 self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(closing_price - row['open_price']))
-                log.info('closing buy position')
+                log.warn('closing buy position %s',row['client_order_id'])
             elif row['action']==-1:
                 closing_price = BrokerAgent.place_market_buy_order(trading_symbol, row['quantity'])
                 self.knowledgeDatabase.update_pnl(index, closing_price, row['quantity']*(row['open_price'] - closing_price))
-                log.info('closing sell position')
+                log.warn('closing sell position %s',row['client_order_id'])
 
         # update weights of agents
         for agent in self.agents:

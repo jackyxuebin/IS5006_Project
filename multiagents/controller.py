@@ -15,13 +15,17 @@ from multiagents.decider_agent import deciderAgent
 from multiagents.ceo import ceo
 from multiagents.pnl_agent import pnlAgent
 from multiagents.learning_agent import learningAgent
+from app.constants.constants import log_level
 import logging
 
 class Controller(object):
     def __init__(self):
 
         # Main
-        logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p',level=logging.INFO)
+        if log_level == 'WARN':
+            logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p',level=logging.WARN)
+        else:
+            logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.INFO)
         self.tweepy_agent = Tweepy_Agent()
         self.knowledgeDatabase = knowledgeDatabase()
         self.ceo = ceo(self.knowledgeDatabase)

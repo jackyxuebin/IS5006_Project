@@ -14,3 +14,4 @@ case_threshold = 0
 profit_threshold_percentage = 1
 default_trade_amount = 0.00001
 risk_reward_ratio = 2
+log_level = 'WARN'

@@ -16,10 +16,10 @@ class ceo:
             balance = BrokerAgent.get_balance(currency)
             cost = BrokerAgent.get_ticker_price(entry['symbol']) * entry['quantity']
             if float(balance) >= cost:
-                log.info('Buying {} {}'.format(entry['quantity'], entry['symbol']))
+                log.warn('Buying {} {}'.format(entry['quantity'], entry['symbol']))
                 clientOrderId = BrokerAgent.place_limit_buy_order(entry['symbol'], entry['quantity'], entry['open_price'])
                 entry['client_order_id'] = clientOrderId
-                entry['order_status'] = np.nan
+                entry['order_status'] = ''
                 entry['stoploss'] = entry['open_price'] - entry['stoploss']
                 entry['takeprofit'] = entry['open_price'] + entry['takeprofit']
                 entry['profit/loss'] = np.nan
@@ -31,10 +31,10 @@ class ceo:
         elif entry['action'] == -1: #sell
             balance = BrokerAgent.get_balance(pair[0])
             if float(balance) >= entry['quantity']:
-                log.info('Selling {} {}'.format(entry['quantity'], entry['symbol']))
+                log.warn('Selling {} {}'.format(entry['quantity'], entry['symbol']))
                 clientOrderId = BrokerAgent.place_limit_sell_order(entry['symbol'], entry['quantity'], entry['open_price'])
                 entry['client_order_id'] = clientOrderId
-                entry['order_status'] = np.nan
+                entry['order_status'] = ''
                 entry['stoploss'] = entry['open_price'] + entry['stoploss']
                 entry['takeprofit'] = entry['open_price'] - entry['takeprofit']
                 entry['profit/loss']= np.nan
