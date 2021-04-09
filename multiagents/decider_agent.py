@@ -58,6 +58,7 @@ class deciderAgent():
         log.info('matched case: %s',matched_case)
 
         if len(matched_case) > case_threshold:
+            log.info(matched_case['profit/loss'])
             profit = matched_case['profit/loss'].dropna().sum()/len(matched_case)
             log.info('average profitability:%s',profit)
             if profit > profit_threshold_percentage:
@@ -67,6 +68,7 @@ class deciderAgent():
         # call CEO agent to validate trade
         trade_entry['stoploss'] = self.get_std_20()
         trade_entry['takeprofit'] = self.get_std_20() * risk_reward_ratio
+        trade_entry['open_price'] = self.get_market_price()
 
         self.ceo.review(trade_entry)
 
@@ -74,4 +76,8 @@ class deciderAgent():
         df = BrokerAgent.get_ohlcv_data(trading_symbol, timeframe)
         df['std_20'] = df['close'].rolling(window=20).std()
         return df.iloc[-1]['std_20']
+
+    def get_market_price(self):
+        return BrokerAgent.get_ticker_price(trading_symbol)
+
 

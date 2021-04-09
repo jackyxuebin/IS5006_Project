@@ -19,6 +19,14 @@ class pnlAgent():
             time.sleep(pnl_time)
 
     def tick(self):
+        # updates order status for unfilled order
+        unfilled_trades = self.knowledgeDatabase.get_unfilled_trades()
+        log.info('unfilled trades %s',unfilled_trades)
+        for index, row in unfilled_trades.iterrows():
+            new_status = BrokerAgent.get_order_status(row['client_order_id'],row['symbol'])
+            self.knowledgeDatabase.update_order_status(index,new_status)
+            log.info('updated order %s with status %s',row['client_order_id'],new_status)
+
         # scans knowledge database for any violation of stoploss and take profit condition
         log.info('ticking in PNL agent')
         to_monitor = self.knowledgeDatabase.get_open_trades()

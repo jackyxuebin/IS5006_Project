@@ -17,12 +17,13 @@ class ceo:
             cost = BrokerAgent.get_ticker_price(entry['symbol']) * entry['quantity']
             if float(balance) >= cost:
                 log.info('Buying {} {}'.format(entry['quantity'], entry['symbol']))
-                price = BrokerAgent.place_market_buy_order(entry['symbol'], entry['quantity'])
-                entry['open_price'] = price
-                entry['stoploss'] = price - entry['stoploss']
-                entry['takeprofit'] = price + entry['takeprofit']
-                entry['profit/loss'] = 0
-                entry['close_price'] = 'nan'
+                clientOrderId = BrokerAgent.place_limit_buy_order(entry['symbol'], entry['quantity'], entry['open_price'])
+                entry['client_order_id'] = clientOrderId
+                entry['order_status'] = np.nan
+                entry['stoploss'] = entry['open_price'] - entry['stoploss']
+                entry['takeprofit'] = entry['open_price'] + entry['takeprofit']
+                entry['profit/loss'] = np.nan
+                entry['close_price'] = np.nan
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
@@ -31,12 +32,13 @@ class ceo:
             balance = BrokerAgent.get_balance(pair[0])
             if float(balance) >= entry['quantity']:
                 log.info('Selling {} {}'.format(entry['quantity'], entry['symbol']))
-                price = BrokerAgent.place_market_sell_order(entry['symbol'], entry['quantity'])
-                entry['open_price'] = price
-                entry['stoploss'] = price + entry['stoploss']
-                entry['takeprofit'] = price - entry['takeprofit']
-                entry['profit/loss']= 0
-                entry['close_price'] = 'nan'
+                clientOrderId = BrokerAgent.place_limit_sell_order(entry['symbol'], entry['quantity'], entry['open_price'])
+                entry['client_order_id'] = clientOrderId
+                entry['order_status'] = np.nan
+                entry['stoploss'] = entry['open_price'] + entry['stoploss']
+                entry['takeprofit'] = entry['open_price'] - entry['takeprofit']
+                entry['profit/loss']= np.nan
+                entry['close_price'] = np.nan
                 entry['timestamp'] = datetime.now()
                 self.knowledgeDatabase.record_trade(entry)
             else:
