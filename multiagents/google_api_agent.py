@@ -103,7 +103,7 @@ class Google_API_Agent(object):
             }
             res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
-            log.info(sharable_url_agent)
+            log.warn("PNL report %s",sharable_url_agent)
         except:
             log.error('An error occurred\n')
 
@@ -144,7 +144,7 @@ class Google_API_Agent(object):
             }
             res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
-            log.info(sharable_url_agent)
+            log.info('Written to %s',sharable_url_agent)
         except:
             log.error('An error occurred\n')
 

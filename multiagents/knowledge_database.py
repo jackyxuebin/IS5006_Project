@@ -109,7 +109,7 @@ class knowledgeDatabase():
         if len(self.trade_history) == 0:
             return self.trade_history
         else:
-            return self.trade_history[self.trade_history['order_status']!='closed']
+            return self.trade_history[(self.trade_history['order_status']!='closed') & (self.trade_history['order_status']!='canceled')]
 
     def record_trade(self, trade_entry):
         self.lock.acquire()
