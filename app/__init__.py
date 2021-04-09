@@ -2,7 +2,9 @@ import json
 import logging
 import os
 import time
+import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import base64
 import sys
 
@@ -15,6 +17,8 @@ from config.mas_config import *
 from multiagents.simulation import *
 from multiagents.backtesting import *
 from multiprocessing import Process
+
+plt.rcParams["figure.figsize"] = [15, 10]
 
 def create_app(test_config=None):
     """
@@ -64,6 +68,81 @@ def create_app(test_config=None):
             'multi-agent system': 'Running',
         })
 
+    # this api is used to plot take-profit and stop-loss against timestamp plot 
+    @app.route('/takeprofit_stoploss_plot')
+    def plot_takeprofit_stoploss():
+        
+        # Start plotting
+        df = pd.read_csv('./local_db/pnl_data/PnL_report.csv', index_col = 'timestamp')
+        plt.plot(df.index, df[['takeprofit']], "-b", label="Take-Profit",marker='o')
+        plt.plot(df.index, df[['stoploss']], "-r", label="Stop-Loss",marker='o')
+        plt.plot(df.index, df[['open_price']], "-o", label="Open Price",marker='o')
+        plt.plot(df.index, df[['close_price']], "-g", label="Close Price",marker='o')
+
+        plt.title('Take Profit vs. Stop Loss', fontsize=14)
+        plt.xlabel('Timestamp', fontsize=14)
+        plt.ylabel('Price', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.legend(loc="upper left")
+        plt.grid()
+        plt.savefig('./local_db/visualization/Take Profit vs. Stop Loss.png', bbox_inches='tight')
+        plt.show()
+        return jsonify({
+            'success': True,
+            'plot': 'The plot has been plotted successfully',
+            'directory': '/local_db/visualization/Take Profit vs. Stop Loss.png'
+        })
+
+    # this api is used to plot suggested action and pnl against timestamp plot 
+    @app.route('/action_pnl_plot')
+    def plot_action_pnl():
+        
+        # Start plotting
+        df = pd.read_csv('./local_db/pnl_data/PnL_report.csv', index_col = 'timestamp')
+        plt.plot(df.index, df[['profit/loss']], "-g", label="PnL",marker='o')
+        plt.plot(df.index, df[['action']], "-b", label="Acton",marker='o')
+
+        plt.title('Suggested Action and Profit and Loss', fontsize=14)
+        plt.xlabel('Timestamp', fontsize=14)
+        plt.ylabel('PnL', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.legend(loc="upper left")
+        plt.grid()
+        plt.savefig('./local_db/visualization/Suggested Action and Profit and Loss.png', bbox_inches='tight')
+        plt.show()
+        return jsonify({
+            'success': True,
+            'plot': 'The plot has been plotted successfully',
+            'directory': '/local_db/visualization/Suggested Action and Profit and Loss.png'
+        })
+
+    # this api is used to plot 5 signals and suggested action against timestamp plot 
+    @app.route('/signals_action_plot')
+    def plot_signals_action():
+        
+        # Start plotting
+        df = pd.read_csv('./local_db/pnl_data/PnL_report.csv', index_col = 'timestamp')
+        plt.plot(df.index, df[['bollinger_band_agent']], "-r", label="Bollinger Band Agent Signal",marker='D')
+        plt.plot(df.index, df[['bollinger_band_trend_agent']], "-y", label="Bollinger Band Trend Agent Signal",marker='s')
+        plt.plot(df.index, df[['fuzzy_logic_agent']], "-b", label="Fuzzy Logic Agent",marker='8')
+        plt.plot(df.index, df[['Q_learning_double_duel_recurrent_agent']], "-c", label="Q-learning Agent",marker='o')
+        plt.plot(df.index, df[['deep_evolution_agent']], "-p", label="Evolution Agent",marker='h')
+        plt.plot(df.index, df[['action']], "-g", label="Acton",marker='p')
+
+        plt.title('5 Signals and Suggested Action', fontsize=14)
+        plt.xlabel('Timestamp', fontsize=14)
+        plt.ylabel('Signal/Action', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.legend(loc="upper left")
+        plt.grid()
+        plt.savefig('./local_db/visualization/5 Signals and Suggested Action.png', bbox_inches='tight')
+        plt.show()
+        return jsonify({
+            'success': True,
+            'plot': 'The plot has been plotted successfully',
+            'directory': '/local_db/visualization/5 Signals and Suggested Action.png'
+        })
+    
     @app.route('/run_backtesting')
     def run_backtesting():
         
