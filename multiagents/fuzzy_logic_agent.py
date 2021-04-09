@@ -16,6 +16,8 @@ from multiagents.google_api_agent import *
 # pip install scikit_Fuzzy
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+import logging
+log = logging.getLogger('fuzzy_logic_agent')
 
 class Fuzzy_Logic_Agent():
     
@@ -44,13 +46,13 @@ class Fuzzy_Logic_Agent():
         self.negative_percent = google_api_object.negative_percent
         
         self.lock.acquire()
-        print('The fuzzy logic lock has been acquired')
+        log.info('The fuzzy logic lock has been acquired')
 
         tweets_sentiment = pd.read_csv('./local_db/tweet_data/bitcoin_tweets.csv')
         self.fuzzy_logic(tweets_sentiment)
         
         self.lock.release()
-        print('The fuzzy logic lock has been released')
+        log.info('The fuzzy logic lock has been released')
         
     # func: fuzzy logic for tweets data
     def fuzzy_logic(self, df_tweet_sentiment):
@@ -97,7 +99,7 @@ class Fuzzy_Logic_Agent():
         sentiment.compute()
 
         recommendation = sentiment.output['recs']
-        print('recommendation:', recommendation)
+        log.info('recommendation:', recommendation)
 
         # We make the cutoff for recommendation score as 30
         if (recommendation >= 30 and self.positive_percent >= 0.40):

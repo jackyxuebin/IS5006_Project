@@ -42,7 +42,7 @@ class knowledgeDatabase():
             time.sleep(tick_time)
 
     def tick(self):
-        log.info('saving data to disk')
+        log.warn('saving data to disk and google sheet')
         header_weights = ['bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent',
                           'deep_evolution_agent', 'Q_learning_double_duel_recurrent_agent']
 

@@ -23,7 +23,8 @@ from google.oauth2 import service_account
 from google.cloud import language_v1
 
 import urllib.request  # the lib that handles the url stuff
-
+import logging
+log = logging.getLogger('google_api_agent')
 class Google_API_Agent(object):
     
     def __init__(self):
@@ -71,7 +72,7 @@ class Google_API_Agent(object):
     def create_google_sheets(self, gs_name):
         sh = self.gc.create(gs_name)
         worksheet = sh.worksheet('Sheet1')
-        print('The Google Sheets ' + gs_name + ' has been created!\n')
+        log.info('The Google Sheets ' + gs_name + ' has been created!\n')
 
     # read (R) a Google Sheets into DataFrame
     def read_google_sheets(self, gs_name):
@@ -80,7 +81,7 @@ class Google_API_Agent(object):
         data = worksheet.get_all_values()
         headers = data.pop(0)
         df = pd.DataFrame(data, columns=headers)
-        print('The DataFrame has been read!\n')
+        log.info('The DataFrame has been read!\n')
         return df
 
     # write (W) a Google Sheets
@@ -96,9 +97,9 @@ class Google_API_Agent(object):
             }
             res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
             sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
-            print(sharable_url_agent)
+            log.info(sharable_url_agent)
         except:
-            print('An error occurred\n')
+            log.error('An error occurred\n')
 
     # append (U) to a Google Sheets
     def append_google_sheets(self, gs_name, new_row):
@@ -125,34 +126,34 @@ class Google_API_Agent(object):
 
             worksheet.append_row(new_row)
 
-            print(sharable_url_agent)
+            log.info(sharable_url_agent)
         except:
-            print('An error occurred while appending to Google Sheets\n')
+            log.info('An error occurred while appending to Google Sheets\n')
             
     def perform_google_sentiment_analysis(self):
 
         self.lock.acquire()
-        print('The google lock is acquired\n')
+        log.info('The google lock is acquired\n')
         
         tweets_dataset = pd.read_csv('./local_db/tweet_data/bitcoin_tweets.csv')
         tweets_dataset['Sentiment Score'], tweets_dataset['Sentiment Magnitude'], tweets_dataset['Google Analyzer Label'] = zip(*tweets_dataset['Preproccessed Tweet Text'].apply(self.google_sentiment_analysis))
 
         positive = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'positive']
         self.positive_percent = positive.shape[0]/(tweets_dataset.shape[0])
-        print(self.positive_percent)
+        log.info(self.positive_percent)
 
         neutral = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'neutral']
         self.neural_percent = neutral.shape[0]/(tweets_dataset.shape[0])
-        print(self.neural_percent)
+        log.info(self.neural_percent)
         
         negative = tweets_dataset[tweets_dataset['Google Analyzer Label'] == 'negative']
         self.negative_percent = negative.shape[0]/(tweets_dataset.shape[0])
-        print(self.negative_percent)
+        log.info(self.negative_percent)
 
         tweets_dataset.to_csv('./local_db/tweet_data/bitcoin_tweets.csv', index = False)
 
         self.lock.release()
-        print('The google lock is released\n')        
+        log.info('The google lock is released\n')
         
     # this function used to send a tweet text to google api to get the score and magnitude
     def google_sentiment_analysis(self, content):
