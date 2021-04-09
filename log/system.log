@@ -177,3 +177,5 @@
 07/04/2021 01:06:23 AM - server_logger - INFO - The server has started
 07/04/2021 01:07:20 AM - server_logger - INFO - The server has started
 07/04/2021 01:07:43 AM - server_logger - INFO - The server has started
+10/04/2021 02:53:56 AM - server_logger - INFO - Exception - View function mapping is overwriting an existing endpoint function: plot_takeprofit_stoploss
+10/04/2021 02:55:38 AM - server_logger - INFO - The server has started
