@@ -20,11 +20,21 @@ BBTrend = (lower - upper) ÷ middleBB(20)
 ### 3. Fuzzy Logic Agent
 The Fuzzy Logic agent will work with 2 other agents (Google API agent and Tweepy agent) to perform fuzzy logic for generating ‘recommendation score’ based on sentiment score and sentiment magnitude obtained from Google API agent. The generated recommendation score and the percentages of the labels (positive, negative and neutral) will be used to generate signal -1 (sell signal), 0 (no action) or 1(buy signal) based on the predefined thresholds. The thresholds were fixed based on the results from our simulation.
 
-### 4. Deep Evolution Agent
+### 4. [Deep Evolution Agent](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3420952)
 We can look to gradient-free approaches to reinforcement learning for help. Using genetic algorithms one can find the parameters that best defines a good performing agent. You start with a certain number of predefined agents (i.e. potential trading strategies) with randomly initialised parameters. Some of them by chance will outperform others. Here is where the evolution comes to play and resurrects the concept of the ‘survival of the fittest’. The algorithm selects the top performing decile of agents and add a bit of Gaussian noise to the parameters so that in the next iteration the agent gets to explore the neighbouring space to identify even better performing strategies. It is down to the core a very simple concept. One can further improve these results by changing some of the input parameters to the genetic algorithm for example the hyperparameters like the window size, population size, variance, and learning rate.
 
-### 5. Double Duel Recurrent Q Learning Agent
+<p align="center">
+<img src="img/revolution.jpg" alt="signals from deep evolution agent" width=400px/> <br />
+<i>Signals from Deep Evolution Agent</i>
+</p>
+
+### 5. [Double Duel Recurrent Q-Learning Agent](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3420952)
 It is an online action-value function learning with an exploration policy, e.g., epsilon-greedy7. You take an action, observe, maximise, adjust policy and do it all again.
+
+<p align="center">
+<img src="img/Q-learning.jpg" alt="signals from double duel recurrent q-learning agent" width=400px/> <br />
+<i>Signals from Double Duel Recurrent Q-Learning Agent</i>
+</p>
 
 ## Decider Agent (Run every 5 minutes)
 There are two main tasks performed by the decider agent - decision on direction and quantity to trade. Action is computed based on the sum of the product of each agent’s signal and their corresponding weight. If the sum exceeds a certain threshold, a buy decision is made; If the sum falls below a certain threshold, a sell decision is made; Otherwise no action is triggered. Quantity is computed using case based reasoning. It works with below logic. Every time a sequence of signals are retrieved, the agent queries the knowledge database for all historical trade with the same signal sequence. Average profitability is computed based on those historical trades. If the average profitability exceeds a predefined threshold, we double the quantity to trade, otherwise we use a predefined default quantity

@@ -1,5 +1,5 @@
 
-# IS5006 Final Group Project
+# IS5006 Final Group Project [Group 7]
 
 [![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-7A5979.svg)](https://join.slack.com/t/is5006group07-um22767/shared_invite/zt-og1rjuud-az7Q60clKRri5bs2gkJBKg)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/arlandgoh)
@@ -15,6 +15,7 @@ This repository provides codes for [Group 7 Final Project](https://docs.google.c
 
 ## Abstract
 Cryptocurrency trading strategies play a critical role in Algorithmic trading. However, it is challenging to design a consistent and profitable strategy in a complex and dynamic cryptocurrency market. In this project, we propose a ensemble strategy scheme that automatically learns a cryptocurrency trading strategies by maximizing investment return. We train 2 machine learning agents and use 3 other algorithmic agents to obtain an ensemble trading strategy using 5 different algorithms: Bollinger Band, Bollinger Band Trend, Double Duel Recurrent Q-learning agent, Deep evolution and Sentiment Analysis. The ensemble strategy inherits and integrates the best features of the three algorithms, thereby robustly adjusting to different market conditions. In order to avoid the large memory consumption in training networks with continuous action space, we employ a load-on-demand approach for processing very large data. We test our algorithms on the Bitcoin cryptocurrency which have adequate liquidity.
+
 ## Description
 The manual of the final project of [IS5006 Intelligent Systems Deployment](https://drive.google.com/file/d/1P0G6ujiBn6GsEXasSgORsdnBm7O68_yV/view?usp=sharing) module at National University of Singapore.
 
@@ -25,6 +26,21 @@ We are tasked with designing and implementing a  system for **Algorithmic tradin
 <p align="center">
 <img src="img/flowchart.jpg" alt="multi-agents' decision flowchart" width=600px/> <br />
 <i>Multi-agents' decision flowchart</i>
+</p>
+
+## R&D Teams
+In this final project, our group is divided into *TWO* teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize or fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
+
+<p align="center">
+<img src="img/r_and_d.jpg" alt="Research & Development" width=400px/> <br />
+<i>Research and Development Teams</i>
+</p>
+
+Besides that, our Development Team adopts DevOps (methodolgy and principles) to work on our Multi-agent System (MAS) and make sure that the system is **production-ready**.
+
+<p align="center">
+<img src="img/devops.jpg" alt="DevOps Methodology and Principles" width=400px/> <br />
+<i>DevOps Methodology and Process</i>
 </p>
 
 ## Installation
@@ -65,10 +81,12 @@ python3 run_server.py
 or open the ‘run_simulation.py’ in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) or [installation](./installation/README.md)  for more information.
 
 ## Documents
+- [Write-up](./documents/)
+- [Research](./documents/)
 - [How To Guide](./Group07_How_To_Guide.pdf/)
-- [References](./documents/)
-- [Assignment](./documents/)
-- [Slides](./documents/) 
+
+## Video
+The video for our final group project can be found [here](https://drive.google.com/drive/folders/1qwB3NnP4nCfUtphuvpyMvW-oCIxDZg0r?usp=sharing)
 
 ## API Reference
 The official documentation can be found on the `HitBTC API reference page <https://api.hitbtc.com/>`_. You can also `explore the API <https://api.hitbtc.com/api/2/explore/>`_ using Swagger UI.
