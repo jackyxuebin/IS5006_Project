@@ -13,18 +13,18 @@ class knowledgeDatabase():
         
         if (os.path.isfile('./knowledge_data/agent_weights.csv')):
             self.agent_weights = pd.read_csv('./knowledge_data/agent_weights.csv',index_col=0).to_dict()
-            log.info('The agent weights have been loaded')
+            print('The agent weights have been loaded')
         else:
             self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1}, 'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1}, 'deep_evolution_agent':{1:1,0:0,-1:1}, 'Q_learning_double_duel_recurrent_agent':{1:1,0:0,-1:1} }
-            log.info('The default agent weights have been loaded')
+            print('The default agent weights have been loaded')
             
         if (os.path.isfile('./local_db/pnl_data/PnL_report.csv')):
             self.trade_history = pd.read_csv('./local_db/pnl_data/PnL_report.csv')
-            log.info('The PnL records have been loaded')
+            print('The PnL records have been loaded')
 
         else:
             self.trade_history = pd.DataFrame()
-            log.info('No PnL records have been loaded')
+            print('No PnL records have been loaded')
         
         self.google_api_object = Google_API_Agent()
         self.gs_name_pnl = 'PnL Report'
@@ -40,20 +40,23 @@ class knowledgeDatabase():
         while True:
             self.tick()
             time.sleep(tick_time)
-
+										
     def tick(self):
-        log.warn('saving data to disk and google sheet')
+        log.info('saving data to disk')
         header_weights = ['bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent',
                           'deep_evolution_agent', 'Q_learning_double_duel_recurrent_agent']
-
-
+        header = ['timestamp', 'symbol', 'action', 'client_order_id', 'order_status', 'bollinger_band_agent', 'bollinger_band_trend_agent', 'fuzzy_logic_agent', 'deep_evolution_agent', 'Q_learning_double_duel_recurrent_agent','open_price', 'close_price', 'quantity', 'profit/loss',  'stoploss', 'takeprofit']
+        self.trade_history = self.trade_history[header]
+        
         # write to both local database and Google Sheets
         if (os.path.isfile('./local_db/pnl_data/PnL_report.csv')):
-            self.google_api_object.write_google_sheets(self.gs_name_pnl,self.trade_history)
+            #self.google_api_object.write_google_sheets(self.gs_name_pnl,self.trade_history)
+            self.google_api_object.write_pnl_google_sheets(self.trade_history)
             self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv',index=False)
         else:
-            self.google_api_object.create_google_sheets(self.gs_name_pnl)
-            self.google_api_object.write_google_sheets(self.gs_name_pnl, self.trade_history)
+            #self.google_api_object.create_google_sheets(self.gs_name_pnl)
+            #self.google_api_object.write_google_sheets(self.gs_name_pnl, self.trade_history)
+            self.google_api_object.write_pnl_google_sheets(self.trade_history)
             self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv',index=False)
 
         if (os.path.isfile('./local_db/knowledge_data/agent_weights.csv')):
@@ -61,14 +64,16 @@ class knowledgeDatabase():
             df_agent_weights['action'] = df_agent_weights.index
             df_agent_weights.reset_index(inplace=True, drop=True)
             df_agent_weights.to_csv('./local_db/knowledge_data/agent_weights.csv')
-            self.google_api_object.write_google_sheets(self.gs_name_weights, df_agent_weights)
+            #self.google_api_object.write_google_sheets(self.gs_name_weights, df_agent_weights)
+            self.google_api_object.write_agent_weights_google_sheets(df_agent_weights)
         else:
             self.google_api_object.create_google_sheets(self.gs_name_weights)
             df_agent_weights = pd.DataFrame.from_dict(self.agent_weights)
             df_agent_weights['action'] = df_agent_weights.index
             df_agent_weights.reset_index(inplace=True, drop=True)
             df_agent_weights.to_csv('./local_db/knowledge_data/agent_weights.csv')
-            self.google_api_object.write_google_sheets(self.gs_name_weights, df_agent_weights)
+            #self.google_api_object.write_google_sheets(self.gs_name_weights, df_agent_weights)
+            self.google_api_object.write_agent_weights_google_sheets(df_agent_weights)
 
     def get_weight(self, agent, signal):
         # return the weight of an agent
@@ -104,7 +109,7 @@ class knowledgeDatabase():
         if len(self.trade_history) == 0:
             return self.trade_history
         else:
-            return self.trade_history[(self.trade_history['order_status']!='closed') & (self.trade_history['order_status']!='canceled')]
+            return self.trade_history[self.trade_history['order_status']!='closed']
 
     def record_trade(self, trade_entry):
         self.lock.acquire()
@@ -138,7 +143,6 @@ class knowledgeDatabase():
         self.lock.release()
 
     def dump(self):
-        log.info('dump')
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
         log.info(self.trade_history.head())

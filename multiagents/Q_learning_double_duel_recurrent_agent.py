@@ -8,6 +8,7 @@ import time
 import logging
 import warnings
 warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 log = logging.getLogger('Q_learning_double_duel_recurrent_agent')
