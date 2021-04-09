@@ -23,8 +23,11 @@ class learningAgent():
         # cancel all open orders
         open_orders = self.knowledgeDatabase.get_unfilled_trades()
         for index,row in open_orders.iterrows():
-            BrokerAgent.cancel_order(row['client_order_id'],row['symbol'])
-            log.info('cancelled order %s',row['client_order_id'])
+            try:
+                BrokerAgent.cancel_order(row['client_order_id'],row['symbol'])
+                log.info('cancelled order %s',row['client_order_id'])
+            except:
+                log.error('failed to cancel %s',row['client_order_id'])
         # close all open trades
         open_trades = self.knowledgeDatabase.get_open_trades()
         for index,row in open_trades.iterrows():

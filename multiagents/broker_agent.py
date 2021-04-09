@@ -56,7 +56,7 @@ class BrokerAgent():
 
     @staticmethod
     def place_limit_sell_order(trading_symbol, amount, price):
-        res = BrokerAgent.hitbtc.create_limit_sell_order((trading_symbol, amount, price))
+        res = BrokerAgent.hitbtc.create_limit_sell_order(trading_symbol, amount, price)
         return res['clientOrderId']
 
     @staticmethod

@@ -116,7 +116,7 @@ class Tweepy_Agent(object):
     def get_all_tweets_search(self):
         
         self.lock.acquire()
-        print('The tweepy lock has been acquired')
+        #print('The tweepy lock has been acquired')
         
         search_words = 'bitcoin OR cryptocurrency OR #bitcoin OR #cryptocurrency' # Define the search term and the date_since date as variables
         date_since = datetime.now() 

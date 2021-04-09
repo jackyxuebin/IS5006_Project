@@ -13,18 +13,18 @@ class knowledgeDatabase():
         
         if (os.path.isfile('./knowledge_data/agent_weights.csv')):
             self.agent_weights = pd.read_csv('./knowledge_data/agent_weights.csv',index_col=0).to_dict()
-            print('The agent weights have been loaded')
+            log.info('The agent weights have been loaded')
         else:
             self.agent_weights = {'bollinger_band_agent':{1:1,0:0,-1:1}, 'bollinger_band_trend_agent':{1:1,0:0,-1:1},'fuzzy_logic_agent':{1:1,0:0,-1:1}, 'deep_evolution_agent':{1:1,0:0,-1:1}, 'Q_learning_double_duel_recurrent_agent':{1:1,0:0,-1:1} }
-            print('The default agent weights have been loaded')
+            log.info('The default agent weights have been loaded')
             
         if (os.path.isfile('./local_db/pnl_data/PnL_report.csv')):
             self.trade_history = pd.read_csv('./local_db/pnl_data/PnL_report.csv')
-            print('The PnL records have been loaded')
+            log.info('The PnL records have been loaded')
 
         else:
             self.trade_history = pd.DataFrame()
-            print('No PnL records have been loaded')
+            log.info('No PnL records have been loaded')
         
         self.google_api_object = Google_API_Agent()
         self.gs_name_pnl = 'PnL Report'
@@ -104,7 +104,7 @@ class knowledgeDatabase():
         if len(self.trade_history) == 0:
             return self.trade_history
         else:
-            return self.trade_history[self.trade_history['order_status']!='closed']
+            return self.trade_history[(self.trade_history['order_status']!='closed') & (self.trade_history['order_status']!='canceled')]
 
     def record_trade(self, trade_entry):
         self.lock.acquire()
@@ -138,6 +138,7 @@ class knowledgeDatabase():
         self.lock.release()
 
     def dump(self):
+        log.info('dump')
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns',None)
         log.info(self.trade_history.head())

@@ -19,7 +19,7 @@ class ceo:
                 log.info('Buying {} {}'.format(entry['quantity'], entry['symbol']))
                 clientOrderId = BrokerAgent.place_limit_buy_order(entry['symbol'], entry['quantity'], entry['open_price'])
                 entry['client_order_id'] = clientOrderId
-                entry['order_status'] = np.nan
+                entry['order_status'] = ''
                 entry['stoploss'] = entry['open_price'] - entry['stoploss']
                 entry['takeprofit'] = entry['open_price'] + entry['takeprofit']
                 entry['profit/loss'] = np.nan
@@ -34,7 +34,7 @@ class ceo:
                 log.info('Selling {} {}'.format(entry['quantity'], entry['symbol']))
                 clientOrderId = BrokerAgent.place_limit_sell_order(entry['symbol'], entry['quantity'], entry['open_price'])
                 entry['client_order_id'] = clientOrderId
-                entry['order_status'] = np.nan
+                entry['order_status'] = ''
                 entry['stoploss'] = entry['open_price'] + entry['stoploss']
                 entry['takeprofit'] = entry['open_price'] - entry['takeprofit']
                 entry['profit/loss']= np.nan
