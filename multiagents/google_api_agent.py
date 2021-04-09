@@ -25,6 +25,7 @@ from google.cloud import language_v1
 import urllib.request  # the lib that handles the url stuff
 import logging
 log = logging.getLogger('google_api_agent')
+
 class Google_API_Agent(object):
     
     def __init__(self):
@@ -67,12 +68,58 @@ class Google_API_Agent(object):
         self.creds_FinTechLab = service_account.Credentials.from_service_account_info(self.service_account_info_FinTechLab)
         self.language_client = language_v1.LanguageServiceClient(credentials=self.creds_FinTechLab,) # creating the language service client object
 
+        self.pnl_report_file_key_id = '1uiy8oFF4xEd6TtJT46KB8KA863J_iAVwFBHyP1UV2xs'
+        self.pnl_report_worksheet_name = "Profit and Loss"
+
+        self.pnl_report_sharable_url = "https://drive.google.com/file/d/" + self.pnl_report_file_key_id + "/edit"
+        self.pnl_report_download_url = 'https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=' + self.pnl_report_sharable_url + '&exportFormat=csv&gid=0'
+
+        self.pnl_report = self.gc.open_by_key(self.pnl_report_file_key_id)
+        self.pnl_worksheet = self.pnl_report.worksheet(self.pnl_report_worksheet_name)
+
+        self.agent_weights_file_key_id = '1zQ0HVSiGXFzzT2Bzdj1ZR66_zckFt3ng8jc1O9syjdU'
+        self.agent_weights_worksheet_name = "Agent_Weights"
+
+        self.agent_weights_sharable_url = "https://drive.google.com/file/d/" + self.agent_weights_file_key_id + "/edit"
+        self.agent_weights_download_url = 'https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=' + self.agent_weights_sharable_url + '&exportFormat=csv&gid=0'
+
+        self.agent_weights = self.gc.open_by_key(self.agent_weights_file_key_id)
+        self.agent_weights_worksheet = self.agent_weights.worksheet(self.agent_weights_worksheet_name)
+        
     # For more information: https://medium.com/@CROSP/manage-google-spreadsheets-with-python-and-gspread-6530cc9f15d1
     # create (C) a new Google Sheets
     def create_google_sheets(self, gs_name):
         sh = self.gc.create(gs_name)
         worksheet = sh.worksheet('Sheet1')
         log.info('The Google Sheets ' + gs_name + ' has been created!\n')
+
+    def write_pnl_google_sheets(self, df_input):
+        try:
+            set_with_dataframe(self.pnl_worksheet, df_input)
+            file_id_agent = self.pnl_report_file_key_id
+            permission_agent = {
+                'type': 'anyone',
+                'role': 'writer',
+            }
+            res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
+            sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
+            log.info(sharable_url_agent)
+        except:
+            log.error('An error occurred\n')
+
+    def write_agent_weights_google_sheets(self, df_input):
+        try:
+            set_with_dataframe(self.agent_weights_worksheet, df_input)
+            file_id_agent = self.agent_weights_file_key_id
+            permission_agent = {
+                'type': 'anyone',
+                'role': 'writer',
+            }
+            res_agent = (self.drive_service.permissions().create(fileId=file_id_agent, body=permission_agent).execute())
+            sharable_url_agent = "https://drive.google.com/file/d/" + file_id_agent + "/edit"
+            log.info(sharable_url_agent)
+        except:
+            log.error('An error occurred\n')
 
     # read (R) a Google Sheets into DataFrame
     def read_google_sheets(self, gs_name):

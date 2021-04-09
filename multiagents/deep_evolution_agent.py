@@ -4,6 +4,9 @@ from app.constants.constants import *
 import numpy as np
 import time
 import logging
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 log = logging.getLogger('deep_evolution_agent')
 should_load_model = True
 # Model trained with
