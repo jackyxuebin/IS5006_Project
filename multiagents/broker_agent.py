@@ -48,3 +48,22 @@ class BrokerAgent():
         res = BrokerAgent.hitbtc.create_market_sell_order(trading_symobol, amount)
         return res['price']
 
+
+    @staticmethod
+    def place_limit_buy_order(trading_symbol, amount, price):
+        res = BrokerAgent.hitbtc.create_limit_buy_order(trading_symbol, amount, price)
+        return res['clientOrderId']
+
+    @staticmethod
+    def place_limit_sell_order(trading_symbol, amount, price):
+        res = BrokerAgent.hitbtc.create_limit_sell_order((trading_symbol, amount, price))
+        return res['clientOrderId']
+
+    @staticmethod
+    def get_order_status(clientOrderId, trading_symbol):
+        res = BrokerAgent.hitbtc.fetch_order(clientOrderId, trading_symbol)
+        return res['status']
+
+    @staticmethod
+    def cancel_order(clientOrderId, trading_symbol):
+        res = BrokerAgent.hitbtc.cancel_order(clientOrderId,trading_symbol)

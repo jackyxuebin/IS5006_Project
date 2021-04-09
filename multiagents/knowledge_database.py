@@ -50,11 +50,11 @@ class knowledgeDatabase():
         # write to both local database and Google Sheets
         if (os.path.isfile('./local_db/pnl_data/PnL_report.csv')):
             self.google_api_object.write_google_sheets(self.gs_name_pnl,self.trade_history)
-            self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv')
+            self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv',index=False)
         else:
             self.google_api_object.create_google_sheets(self.gs_name_pnl)
             self.google_api_object.write_google_sheets(self.gs_name_pnl, self.trade_history)
-            self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv')
+            self.trade_history.to_csv('./local_db/pnl_data/PnL_report.csv',index=False)
 
         if (os.path.isfile('./local_db/knowledge_data/agent_weights.csv')):
             df_agent_weights = pd.DataFrame.from_dict(self.agent_weights)
@@ -98,7 +98,13 @@ class knowledgeDatabase():
         if len(self.trade_history) == 0:
             return self.trade_history
         else:
-            return self.trade_history[self.trade_history['profit/loss'].isnull()]
+            return self.trade_history[(self.trade_history['profit/loss'].isnull()) & (self.trade_history['order_status']=='closed')]
+
+    def get_unfilled_trades(self):
+        if len(self.trade_history) == 0:
+            return self.trade_history
+        else:
+            return self.trade_history[self.trade_history['order_status']!='closed']
 
     def record_trade(self, trade_entry):
         self.lock.acquire()
@@ -124,6 +130,11 @@ class knowledgeDatabase():
         self.lock.acquire()
         self.trade_history.at[index,'close_price']=closing_price
         self.trade_history.at[index,'profit/loss']=pnl
+        self.lock.release()
+
+    def update_order_status(self,index,new_status):
+        self.lock.acquire()
+        self.trade_history.at[index,'order_status']=new_status
         self.lock.release()
 
     def dump(self):
