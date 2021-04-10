@@ -86,7 +86,7 @@ def create_app(test_config=None):
         plt.legend(loc="upper left")
         plt.grid()
         plt.savefig('./local_db/visualization/Take Profit vs. Stop Loss.png', bbox_inches='tight')
-        plt.show()
+        #plt.show()
         return jsonify({
             'success': True,
             'plot': 'The plot has been plotted successfully',
@@ -109,7 +109,7 @@ def create_app(test_config=None):
         plt.legend(loc="upper left")
         plt.grid()
         plt.savefig('./local_db/visualization/Suggested Action and Profit and Loss.png', bbox_inches='tight')
-        plt.show()
+        #plt.show()
         return jsonify({
             'success': True,
             'plot': 'The plot has been plotted successfully',
@@ -136,7 +136,7 @@ def create_app(test_config=None):
         plt.legend(loc="upper left")
         plt.grid()
         plt.savefig('./local_db/visualization/5 Signals and Suggested Action.png', bbox_inches='tight')
-        plt.show()
+        #plt.show()
         return jsonify({
             'success': True,
             'plot': 'The plot has been plotted successfully',
