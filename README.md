@@ -14,14 +14,16 @@ This repository provides codes for [Group 7 Final Project](https://docs.google.c
 </p>
 
 ## Abstract
-Cryptocurrency trading strategies play a critical role in Algorithmic trading. However, it is challenging to design a consistent and profitable strategy in a complex and dynamic cryptocurrency market. In this project, we propose a ensemble strategy scheme that automatically learns a cryptocurrency trading strategies by maximizing investment return. We train 2 machine learning agents and use 3 other algorithmic agents to obtain an ensemble trading strategy using 5 different algorithms: Bollinger Band, Bollinger Band Trend, Double Duel Recurrent Q-learning agent, Deep evolution and Sentiment Analysis. The ensemble strategy inherits and integrates the best features of the three algorithms, thereby robustly adjusting to different market conditions. In order to avoid the large memory consumption in training networks with continuous action space, we employ a load-on-demand approach for processing very large data. We test our algorithms on the Bitcoin cryptocurrency which have adequate liquidity.
+Cryptocurrency trading strategies play a critical role in Algorithmic trading. However, it is challenging to design a consistent and profitable strategy in a complex and dynamic cryptocurrency market. In this project, we propose an ensemble strategy scheme that automatically learns cryptocurrency trading strategies by maximizing investment return. We train 2 machine learning agents and use 3 other algorithmic agents to obtain an ensemble trading strategy using 5 different algorithms: Bollinger Band, Bollinger Band Trend, Double Duel Recurrent Q-learning agent, Deep evolution and Sentiment Analysis. The ensemble strategy inherits and integrates the best features of the three algorithms, thereby robustly adjusting to different market conditions. In order to avoid the large memory consumption in training networks with continuous action space, we employ a load-on-demand approach for processing very large data. We test our algorithms on the Bitcoin cryptocurrency which have adequate liquidity.
 
 ## Description
 The manual of the final project of [IS5006 Intelligent Systems Deployment](https://drive.google.com/file/d/1P0G6ujiBn6GsEXasSgORsdnBm7O68_yV/view?usp=sharing) module at National University of Singapore.
 
-We are tasked with designing and implementing a  system for **Algorithmic trading**. This is a multi-agent and case-based reasoning system for algorithmic trading (multi-threading Flask server with multiple agents). This system allows user to get recommendation on whether buy/sell/hold a cryptocurrency in HitBTC exchange. Given the highly complex and decentralized nature of the problem, a multi-agent system (MAS) design is a natural approach for building an efficient solution without requiring expert engineering. The goal of our system is to:
-- make recommendation(s) on whether to buy or sell cryptocurrencies
-- take action(s) based on the recommendation(s) etc.
+We are tasked with designing and implementing a system for Algorithmic trading. This is a multi-agent and case-based reasoning system for algorithmic trading (multithreading Flask server with multiple agents). This system allows users to get recommendations on whether to buy/sell/hold a cryptocurrency in the HitBTC exchange. A MAS with multiple agents interacting with each other is proposed as the solution to the complex and decentralized problem. 
+
+The goals of our system are:
+- to make recommendation(s) on whether to buy or sell cryptocurrencies
+- to take action(s) based on the recommendation(s) etc.
 
 <p align="center">
 <img src="img/flowchart.jpg" alt="multi-agents' decision flowchart" width=600px/> <br />
