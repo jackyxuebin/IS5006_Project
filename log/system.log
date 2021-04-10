@@ -179,3 +179,11 @@
 07/04/2021 01:07:43 AM - server_logger - INFO - The server has started
 10/04/2021 02:53:56 AM - server_logger - INFO - Exception - View function mapping is overwriting an existing endpoint function: plot_takeprofit_stoploss
 10/04/2021 02:55:38 AM - server_logger - INFO - The server has started
+10/04/2021 08:22:10 PM - server_logger - INFO - Exception - View function mapping is overwriting an existing endpoint function: plot_signals_action
+10/04/2021 08:23:49 PM - server_logger - INFO - Exception - View function mapping is overwriting an existing endpoint function: plot_signals_action
+10/04/2021 08:25:10 PM - server_logger - INFO - The server has started
+10/04/2021 08:25:10 PM - server_logger - INFO - Exception - [Errno 48] Address already in use: ('0.0.0.0', 7000)
+10/04/2021 08:29:49 PM - server_logger - INFO - The server has started
+10/04/2021 08:30:12 PM - server_logger - INFO - The server has been shutdown gracefully
+10/04/2021 08:30:18 PM - server_logger - INFO - The server has started
+10/04/2021 08:31:19 PM - server_logger - INFO - The server has been shutdown gracefully

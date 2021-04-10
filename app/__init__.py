@@ -142,7 +142,25 @@ def create_app(test_config=None):
             'plot': 'The plot has been plotted successfully',
             'directory': '/local_db/visualization/5 Signals and Suggested Action.png'
         })
-    
+
+    @app.route('/cumulative_profit_plot')
+    def plot_cumulative_profit():
+        df = pd.read_csv('./local_db/pnl_data/PnL_report.csv', index_col='timestamp')
+        df['profit/loss'].dropna().cumsum().plot()
+        plt.title('Cumulative profit/loss over time', fontsize=14)
+        plt.xlabel('Timestamp', fontsize=14)
+        plt.ylabel('Cumulative profit/loss', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.legend(loc="upper left")
+        plt.grid()
+        plt.savefig('./local_db/visualization/Cumulative Profit.png', bbox_inches='tight')
+        #plt.show()
+        return jsonify({
+            'success': True,
+            'plot': 'The plot has been plotted successfully',
+            'directory': '/local_db/visualization/Cumulative Profit.png'
+        })
+
     @app.route('/run_backtesting')
     def run_backtesting():
         

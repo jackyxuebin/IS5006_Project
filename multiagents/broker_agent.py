@@ -2,6 +2,7 @@ import ccxt
 import datetime
 import pandas as pd
 from app.constants.constants import *
+from matplotlib import pyplot as plt
 import logging
 log = logging.getLogger('broker_agent')
 
@@ -67,3 +68,5 @@ class BrokerAgent():
     @staticmethod
     def cancel_order(clientOrderId, trading_symbol):
         res = BrokerAgent.hitbtc.cancel_order(clientOrderId,trading_symbol)
+
+
