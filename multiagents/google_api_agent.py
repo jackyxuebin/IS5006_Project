@@ -225,13 +225,4 @@ class Google_API_Agent(object):
             sentiment_score = response.document_sentiment.score
             sentiment_magnitude = response.document_sentiment.magnitude
 
-        return sentiment_score, sentiment_magnitude, predicted_label
-       
-## uncomment the following lines of code to test the agent
-#if __name__ == '__main__':
-    #gs_name = 'G7'
-    #google_api_object = Google_API_Agent()
-    #google_api_object.perform_google_sentiment_analysis()
-    #tweet_df_processed = pd.read_csv('./local_db/bitcoin_tweets.csv')
-    #print(tweet_df_processed.head())
-
+        return sentiment_score, sentiment_magnitude, predicted_label      

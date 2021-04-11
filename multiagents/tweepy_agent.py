@@ -58,7 +58,8 @@ class Tweepy_Agent(object):
             self.get_all_tweets_search()
             time.sleep(tweeter_time)
             
-    # https://gist.github.com/yanofsky/5436496
+    ## This function can be used to extract the tweets from a specific account name
+    ## We do not use this in our system for demo purposes.
     def get_all_tweets_account_name(self):
         
         self.lock.acquire()
@@ -112,7 +113,7 @@ class Tweepy_Agent(object):
         else:
             self.lock.release()
         
-        
+    ## This function can be used to extract the tweets based on specific keywords
     def get_all_tweets_search(self):
         
         self.lock.acquire()
@@ -176,7 +177,6 @@ class Tweepy_Agent(object):
             self.lock.release()
                     
     # Cleaning the tweets
-    # https://github.com/pjwebdev/Basic-Data-Science-Projects/blob/master/8-Twitter-Sentiment-Analysis/Tweeter%20Sentiment%20Analysis.ipynb
     def clean_up_tweet(self, txt):
         # Remove mentions
         txt = re.sub(r'@[A-Za-z0-9_]+', '', txt)
@@ -218,6 +218,3 @@ class Tweepy_Agent(object):
 
     def __str__(self):
         return 'tweepy_agent'
-    
-#if __name__ == '__main__':
-#    tweepy_object = Tweepy_Agent()

@@ -1,20 +1,20 @@
 # IS5006 Final Group Project
 
 ## Installation procedure
-We may need to install some Python dependencies on your machine. We assume that you are running a Ubuntu machine.
+We may need to install some Python dependencies on your machine. We assume that you are running a Windows machine.
+
+### For Windows User 
+To install these dependencies:
+1. Open the Windows Command Prompt as an administator. This is required for the installation. Simply right-click on the Command Prompt app in the startup menu and select 'Run As Administrator'.
+2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the command prompt.
+3. Run 'pip3 install -r requirements.txt'
+4. This should install the dependencies.
 
 ### For Ubuntu User
 To install these dependencies:
 1. Open the Terminal. 
 2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the Terminal.
 3. Run 'pip3 install -r requirements.txt'
-
-### For Windows User
-To install these dependencies:
-1. Open the Windows Command Prompt as an administator. This is required for the installation. Simply right-click on the Command Prompt app in the startup menu and select 'Run As Administrator'.
-2. Navigate to the directory of this readme file (which also contains the requirements.txt) in the command prompt.
-3. Run 'pip3 install -r requirements.txt'
-4. This should install the dependencies.
 
 ### For Mac User
 To install these dependencies:
