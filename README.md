@@ -66,7 +66,7 @@ git clone https://github.com/jackyxuebin/IS5006_Project.git
 | **multi-agents** | code repository for those agents in the system |
 | **preprocessing** | functions/libraries which can be used to pre-process cyrptocurrency data |
 
-## Quick Start
+## Quick Start [Without Running & Using the FLASK Server]
 #### Windows 10, Ubuntu and Mac OS X 
 To run the system, please navigate to the project folder and use the following command in your command prompt/Terminal:
 ```
