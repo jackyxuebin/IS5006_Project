@@ -19,6 +19,7 @@ from skfuzzy import control as ctrl
 import logging
 log = logging.getLogger('fuzzy_logic_agent')
 
+# This agent is used to perform fuzzy logic on the sentiment score and magnitude of the Twitter data, and generate recommendation score
 class Fuzzy_Logic_Agent():
     
     def __init__(self):
@@ -55,6 +56,8 @@ class Fuzzy_Logic_Agent():
         log.info('The fuzzy logic lock has been released')
         
     # func: fuzzy logic for tweets data
+    # input: Sentiment Score and Sentiment Magnitude
+    # output: recommendation Score
     def fuzzy_logic(self, df_tweet_sentiment):
         
         total_tweets = len(df_tweet_sentiment)

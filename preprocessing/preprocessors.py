@@ -5,6 +5,7 @@ from stockstats import StockDataFrame as Sdf
 from mas_config import *
 import datetime
 
+## This module is a standalone module, you may need to run it separately from our MAS system
 def load_dataset(*, file_path: str) -> pd.DataFrame:
     """
     load csv dataset from path
@@ -136,10 +137,8 @@ def calcualte_turbulence(df):
 
 
 
-df_final = pd.read_csv('../local_db/data/preprocessed_data.csv', index_col=0)
-#df_final.set_index('time', inplace=True)
-df_final = add_turbulence(df_final)
-df_final.to_csv('../local_db/data/preprocessed_data.csv')
+# df_final = pd.read_csv('../local_db/data/preprocessed_data.csv', index_col=0)
+# df_final.to_csv('../local_db/data/preprocessed_data.csv')
 
 
 

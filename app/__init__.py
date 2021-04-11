@@ -15,7 +15,6 @@ from werkzeug.utils import secure_filename
 from app.utils.logger import *
 from config.mas_config import *
 from multiagents.simulation import *
-from multiagents.backtesting import *
 from multiprocessing import Process
 
 plt.rcParams["figure.figsize"] = [15, 10]
@@ -160,15 +159,5 @@ def create_app(test_config=None):
             'plot': 'The plot has been plotted successfully',
             'directory': '/local_db/visualization/Cumulative Profit.png'
         })
-
-    @app.route('/run_backtesting')
-    def run_backtesting():
-        
-        # Start simulation
-        backtesting = Backtesting()
-        return jsonify({
-            'success': True,
-            'backtesting': 'Completed',
-        })
-    
+   
     return app

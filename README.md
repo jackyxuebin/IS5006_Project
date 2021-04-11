@@ -1,6 +1,7 @@
 
 # IS5006 Final Group Project [Group 7]
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-7A5979.svg)](https://join.slack.com/t/is5006group07-um22767/shared_invite/zt-og1rjuud-az7Q60clKRri5bs2gkJBKg)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/arlandgoh)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
@@ -31,7 +32,7 @@ The goals of our system are:
 </p>
 
 ## R&D Teams
-In this final project, our group is divided into *TWO* teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize or fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
+In this final project, our group is divided into *TWO* teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize and fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
 
 <p align="center">
 <img src="img/r_and_d.jpg" alt="Research & Development" width=400px/> <br />
@@ -66,7 +67,7 @@ git clone https://github.com/jackyxuebin/IS5006_Project.git
 | **preprocessing** | functions/libraries which can be used to pre-process cyrptocurrency data |
 
 ## Quick Start
-#### Ubuntu, Mac OS X and Windows 10
+#### Windows 10, Ubuntu and Mac OS X 
 To run the system, please navigate to the project folder and use the following command in your command prompt/Terminal:
 ```
 python3 run_simulation.py
@@ -75,17 +76,43 @@ or open the ‘run_simulation.py in Python IDE or any other IDE and run it. Plea
 
 
 ## Start the Multi-agent System in Flask Server
-#### Ubuntu, Mac OS X and Windows 10
+#### Windows 10, Ubuntu and Mac OS X 
 To start the Flask Server, please use the following command in your command prompt/Terminal, the system will be served on port 7000:
 ```
 python3 run_server.py
   ```  
 or open the ‘run_simulation.py’ in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) or [installation](./installation/README.md)  for more information.
 
+#### Usage guide
+1. After running our Flask server, you may use the following APIs:
+2. To start simulation, open your browser and invoke the /run_simulation API:
+	```
+	localhost:7000/run_simulation 
+	```
+3. To check the cumulative profit/loss graph, you may use the /cumulative_profit_plot API: 
+	```
+	localhost:7000/cumulative_profit_plot 
+	```
+4. To check the other plot, you may invoke all/one of the following APIs below:
+ 	```
+	localhost:7000/signals_action_plot 
+	localhost:7000/action_pnl_plot 
+	localhost:7000/takeprofit_stoploss_plot
+	```
+To view the Profit and Loss report, please go to 'local_db/pnl_data/PnL_report.csv' in our project.
+	
+## Performance
+
+<p align="center">
+<img src="local_db/visualization/Cumulative Profit.png" alt="Cumulative Profit/Loss" width=400px/> <br />
+<i>Cumulative Profit/Loss</i>
+</p>
+
 ## Documents
 - [Write-up](./documents/)
 - [Research](./documents/)
 - [How To Guide](./Group07_How_To_Guide.pdf/)
+- [Slide Deck](https://docs.google.com/presentation/d/1AIRvTGAfKRqDG4E-RgVYlS0_Oyuv-ZUJp1DLhSnBwbU/edit?usp=sharing)
 
 ## Video
 The video for our final group project can be found [here](https://drive.google.com/drive/folders/1qwB3NnP4nCfUtphuvpyMvW-oCIxDZg0r?usp=sharing)
