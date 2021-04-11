@@ -52,32 +52,39 @@ Please refer to [installation](./installation/README.md) and [How To Guide](./Gr
 git clone https://github.com/jackyxuebin/IS5006_Project.git
 ```
 
-## Directories
-| Directory Name | Description | 
-| --- | --- |
-| **app** | codes for setting up Flask Application and its configuration files |
-| **config** | configuration files |
-| **documents** | group project manual and other informative documents |
-| **img** | images and figures which will be used in README.md |
-| **installation** | system installation instructions and list of depencies/packages  |
-| **local_db** | train/test dataset and other neccessary dataset e.g. tweet dataset |
-| **log** | log data from the system/agents  |
-| **model** | codes for training/testing of models and trained models |
-| **multi-agents** | code repository for those agents in the system |
-| **preprocessing** | functions/libraries which can be used to pre-process cyrptocurrency data |
+## Installation
+Please refer to [installation](./installation/README.md) and [How To Guide](./Group07_How_To_Guide.pdf/) for more information.
+```shell
+git clone https://github.com/jackyxuebin/IS5006_Project.git
+```
 
-## Quick Start [Without Running & Using the FLASK Server]
+## Dependencies
+The script has been tested running under Python >= 3.7.0, with the following packages installed:
+
+```shell
+pip3 install -r ./installation/requirements.txt
+```
+
+OR navigate to ./installation directory and run the following command:
+
+```shell
+pip3 install -r requirements.txt
+```
+
+Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md) for more information.
+
+## Quick Start [Development: Without Running & Using the FLASK Server]
 #### Windows 10, Ubuntu and Mac OS X 
-To run the system, please navigate to the project folder and use the following command in your command prompt/Terminal:
+To run the system, please navigate to the project folder (IS5006_Project) and use the following command in your command prompt/Terminal:
 ```
 python3 run_simulation.py
 ```
 or open the ‘run_simulation.py in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md)  for more information.
 
 
-## Start the Multi-agent System in Flask Server
+## Start the Multi-agent System in Flask Server [Deployment and Production]
 #### Windows 10, Ubuntu and Mac OS X 
-To start the Flask Server, please use the following command in your command prompt/Terminal, the system will be served on port 7000:
+To start the Flask Server, please navigate to the project folder (IS5006_Project) and use the following command in your command prompt/Terminal, the system will be served on port 7000:
 ```
 python3 run_server.py
   ```  
@@ -127,14 +134,19 @@ Next, you need to obtain an **API Key** and an **API Secret**. If you're writing
 
 NOTE: Make sure to enable appropriate permissions for the API key (some require email confirmation).
 
-## Dependencies
-The script has been tested running under Python >= 3.7.0, with the following packages installed:
-
-```shell
-pip install -r ./installation/requirements.txt
-```
-
-Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md) for more information.
+## Directories
+| Directory Name | Description | 
+| --- | --- |
+| **app** | codes for setting up Flask Application and its configuration files |
+| **config** | configuration files |
+| **documents** | group project manual and other informative documents |
+| **img** | images and figures which will be used in README.md |
+| **installation** | system installation instructions and list of depencies/packages  |
+| **local_db** | train/test dataset and other neccessary dataset e.g. tweet dataset |
+| **log** | log data from the system/agents  |
+| **model** | codes for training/testing of models and trained models |
+| **multi-agents** | code repository for those agents in the system |
+| **preprocessing** | functions/libraries which can be used to pre-process cyrptocurrency data |
 
 ## Tools
 | Tool Name | Description | 
