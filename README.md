@@ -54,13 +54,13 @@ Besides that, our Development Team adopts DevOps (methodolgy and principles) to 
 </p>
 
 ## Installation
-Please refer to [installation](./installation/README.md) and [How To Guide](./Group07_How_To_Guide.pdf/) for more information.
+Please refer to [installation](./installation/README.md) and [How To Guide](https://github.com/jackyxuebin/IS5006_Project/blob/main/documents/Group07_How%20To%20Guide.pdf) for more information.
 ```shell
 git clone https://github.com/jackyxuebin/IS5006_Project.git
 ```
 
 ## Installation
-Please refer to [installation](./installation/README.md) and [How To Guide](./Group07_How_To_Guide.pdf/) for more information.
+Please refer to [installation](./installation/README.md) and [How To Guide](./documents/Group07_How%20To%20Guide.pdf) for more information.
 ```shell
 git clone https://github.com/jackyxuebin/IS5006_Project.git
 ```
@@ -78,7 +78,7 @@ OR navigate to ./installation directory and run the following command:
 pip3 install -r requirements.txt
 ```
 
-Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md) for more information.
+Please refer to [How To Guide](./documents/Group07_How%20To%20Guide.pdf) and [installation](./installation/README.md) for more information.
 
 ## Quick Start: Without Running & Using the FLASK Server [Development and Demo] 
 #### Windows 10, Ubuntu and Mac OS X 
@@ -86,7 +86,7 @@ To run the system, please navigate to the project folder (IS5006_Project) and us
 ```
 python3 run_simulation.py
 ```
-or open the ‘run_simulation.py in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md)  for more information.
+or open the ‘run_simulation.py in Python IDE or any other IDE and run it. Please refer to [How To Guide](./documents/Group07_How%20To%20Guide.pdf) and [installation](./installation/README.md)  for more information.
 
 
 ## Start the Multi-agent System in Flask Server [Deployment and Production]
@@ -95,7 +95,7 @@ To start the Flask Server, please navigate to the project folder (IS5006_Project
 ```
 python3 run_server.py
   ```  
-or open the ‘run_simulation.py’ in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) or [installation](./installation/README.md)  for more information.
+or open the ‘run_simulation.py’ in Python IDE or any other IDE and run it. Please refer to [How To Guide](./documents/Group07_How%20To%20Guide.pdf) or [installation](./installation/README.md)  for more information.
 
 #### Usage guide
 1. After running our Flask server, you may use the following APIs:
@@ -123,10 +123,10 @@ To view the Profit and Loss report, please go to 'local_db/pnl_data/PnL_report.c
 </p>
 
 ## Documents
-- [Write-up](./documents/)
-- [Research](./documents/)
-- [How To Guide](./Group07_How_To_Guide.pdf/)
-- [Slide Deck](https://docs.google.com/presentation/d/1AIRvTGAfKRqDG4E-RgVYlS0_Oyuv-ZUJp1DLhSnBwbU/edit?usp=sharing)
+- [Write-up](./documents/Group07_Write-up.pdf)
+- [Research](./documents/Group07_Research.pdf)
+- [How To Guide](./documents/Group07_How%20To%20Guide.pdf)
+- [Slide Deck](./documents/Group07_Video%20Slides.pdf)
 
 ## Video
 The video for our final group project can be found [here](https://drive.google.com/drive/folders/1qwB3NnP4nCfUtphuvpyMvW-oCIxDZg0r?usp=sharing)
