@@ -73,7 +73,7 @@ pip3 install -r requirements.txt
 
 Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md) for more information.
 
-## Quick Start [Development: Without Running & Using the FLASK Server]
+## Quick Start: Without Running & Using the FLASK Server [Development and Demo] 
 #### Windows 10, Ubuntu and Mac OS X 
 To run the system, please navigate to the project folder (IS5006_Project) and use the following command in your command prompt/Terminal:
 ```
