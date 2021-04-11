@@ -32,11 +32,18 @@ The goals of our system are:
 </p>
 
 ## R&D Teams
-In this final project, our group is divided into **TWO** teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize and fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
+In this final project, our group is divided into **TWO** teams, **Research Team (Product Management) and Development Team (DevOps)**, to make sure that each team can prioritize and fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
 
 <p align="center">
 <img src="img/r_and_d.jpg" alt="Research & Development" width=400px/> <br />
 <i>Research and Development Teams</i>
+</p>
+
+Our Research (and Product Management) Team adopts agile project management methods to work with all the stakeholders (e.g. DevOps team) and make sure that our milestones and requirements are met hence delivering high-quality deliverables on time.
+
+<p align="center">
+<img src="img/product_management.png" alt="Research and Product Management" width=400px/> <br />
+<i>Research and Product Management</i>
 </p>
 
 Besides that, our Development Team adopts DevOps (methodolgy and principles) to work on our Multi-agent System (MAS) and make sure that the system is **production-ready**.
