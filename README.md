@@ -6,7 +6,7 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/arlandgoh)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-This repository provides codes for [Group 7 Final Project](https://docs.google.com/spreadsheets/d/1lz79scscDoG9j-GIUKvt1KA83w_eNqn3bhGJ-PNGuJg/edit?usp=sharing)
+This repository provides codes for **Group 7 Final Project**.
 
 ## Multi-agent and Case-based Reasoning Algo Trading Systems
 
@@ -32,7 +32,7 @@ The goals of our system are:
 </p>
 
 ## R&D Teams
-In this final project, our group is divided into *TWO* teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize and fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
+In this final project, our group is divided into **TWO** teams, **Research Team and Development Team (DevOps)**, to make sure that each team can prioritize and fully focus on the assigned tasks in the area of interest hence the quality of works can be assured.
 
 <p align="center">
 <img src="img/r_and_d.jpg" alt="Research & Development" width=400px/> <br />
@@ -87,17 +87,17 @@ or open the ‘run_simulation.py’ in Python IDE or any other IDE and run it. P
 1. After running our Flask server, you may use the following APIs:
 2. To start simulation, open your browser and invoke the /run_simulation API:
 	```
-	localhost:7000/run_simulation 
+	http://localhost:7000/run_simulation 
 	```
 3. To check the cumulative profit/loss graph, you may use the /cumulative_profit_plot API: 
 	```
-	localhost:7000/cumulative_profit_plot 
+	http://localhost:7000/cumulative_profit_plot 
 	```
 4. To check the other plot, you may invoke all/one of the following APIs below:
  	```
-	localhost:7000/signals_action_plot 
-	localhost:7000/action_pnl_plot 
-	localhost:7000/takeprofit_stoploss_plot
+	http://localhost:7000/signals_action_plot 
+	http://localhost:7000/action_pnl_plot 
+	http://localhost:7000/takeprofit_stoploss_plot
 	```
 To view the Profit and Loss report, please go to 'local_db/pnl_data/PnL_report.csv' in our project.
 	
