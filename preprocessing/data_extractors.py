@@ -6,11 +6,8 @@ from datetime import datetime, date, timedelta
 import numpy as np
 import time
 
-## Get dataset from CoinBase
-# ochlv_df = HistoricalData('BTC-USD',300,'2017-04-02-00-00', '2021-04-02-00-00').retrieve_data()
-# ochlv_df.to_csv('bitcoin_train_dataset_2009_2021.csv')
-
 ## Fetch OHLCV efficiently with specific timeframe
+## This module is a standalone module, you may need to run it separately from our MAS system
 ## Sources: https://techflare.blog/how-to-get-ohlcv-data-for-your-exchange-with-ccxt-library/
 hitbtc = ccxt.hitbtc()
 
@@ -72,5 +69,5 @@ datelist = [date.strftime("%Y%m%d") for date in datelist]
 
 df = ohlcv(datelist, 'BTC/USDT', '5m')
 
-# 5 minute BTC/USDT ohlcv data between Jan 2014 and Jan 2019 from crypto exchange
+# 5 minute BTC/USDT ohlcv data between April 2019 and April 2021 from crypto exchange
 df.to_csv('../local_db/data/bitcoin_train_dataset_2019_2021.csv')
