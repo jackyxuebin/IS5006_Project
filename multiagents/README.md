@@ -24,7 +24,7 @@ The Fuzzy Logic agent will work with 2 other agents (Google API agent and Tweepy
 We can look to gradient-free approaches to reinforcement learning for help. Using genetic algorithms one can find the parameters that best defines a good performing agent. You start with a certain number of predefined agents (i.e. potential trading strategies) with randomly initialised parameters. Some of them by chance will outperform others. Here is where the evolution comes to play and resurrects the concept of the ‘survival of the fittest’. The algorithm selects the top performing decile of agents and add a bit of Gaussian noise to the parameters so that in the next iteration the agent gets to explore the neighbouring space to identify even better performing strategies. It is down to the core a very simple concept. One can further improve these results by changing some of the input parameters to the genetic algorithm for example the hyperparameters like the window size, population size, variance, and learning rate.
 
 <p align="center">
-<img src="img/revolution.jpg" alt="signals from deep evolution agent" width=400px/> <br />
+<img src="../img/revolution.jpg" alt="signals from deep evolution agent" width=400px/> <br />
 <i>Signals from Deep Evolution Agent</i>
 </p>
 
@@ -32,7 +32,7 @@ We can look to gradient-free approaches to reinforcement learning for help. Usin
 It is an online action-value function learning with an exploration policy, e.g., epsilon-greedy7. You take an action, observe, maximise, adjust policy and do it all again.
 
 <p align="center">
-<img src="img/Q-learning.jpg" alt="signals from double duel recurrent q-learning agent" width=400px/> <br />
+<img src="../img/Q-learning.jpg" alt="signals from double duel recurrent q-learning agent" width=400px/> <br />
 <i>Signals from Double Duel Recurrent Q-Learning Agent</i>
 </p>
 
