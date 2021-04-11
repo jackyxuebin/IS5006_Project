@@ -73,7 +73,7 @@ pip3 install -r requirements.txt
 
 Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md) for more information.
 
-## Quick Start [Without Running & Using the FLASK Server]
+## Quick Start [Development: Without Running & Using the FLASK Server]
 #### Windows 10, Ubuntu and Mac OS X 
 To run the system, please navigate to the project folder (IS5006_Project) and use the following command in your command prompt/Terminal:
 ```
@@ -82,7 +82,7 @@ python3 run_simulation.py
 or open the ‘run_simulation.py in Python IDE or any other IDE and run it. Please refer to [How To Guide](./Group07_How_To_Guide.pdf/) and [installation](./installation/README.md)  for more information.
 
 
-## Start the Multi-agent System in Flask Server
+## Start the Multi-agent System in Flask Server [Deployment and Production]
 #### Windows 10, Ubuntu and Mac OS X 
 To start the Flask Server, please navigate to the project folder (IS5006_Project) and use the following command in your command prompt/Terminal, the system will be served on port 7000:
 ```
