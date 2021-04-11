@@ -53,11 +53,6 @@ Besides that, our Development Team adopts DevOps (methodolgy and principles) to 
 <i>DevOps Methodology and Process</i>
 </p>
 
-## Installation
-Please refer to [installation](./installation/README.md) and [How To Guide](https://github.com/jackyxuebin/IS5006_Project/blob/main/documents/Group07_How%20To%20Guide.pdf) for more information.
-```shell
-git clone https://github.com/jackyxuebin/IS5006_Project.git
-```
 
 ## Installation
 Please refer to [installation](./installation/README.md) and [How To Guide](./documents/Group07_How%20To%20Guide.pdf) for more information.
